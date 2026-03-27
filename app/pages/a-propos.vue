@@ -1,4 +1,20 @@
 <script setup>
+const heroVisible = ref(false);
+const heroSection = ref(null);
+
+onMounted(() => {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        heroVisible.value = true;
+      } else {
+        heroVisible.value = false;
+      }
+    });
+  }, { threshold: 0.1 });
+  if (heroSection.value) observer.observe(heroSection.value);
+});
+
 // Page info
 useHead({
   title: 'À propos | Lumen Agency',
@@ -10,17 +26,39 @@ useHead({
 
 <template>
   <div>
-    <!-- Hero Section Simple -->
-    <section class="relative py-20 md:py-32 bg-dark overflow-hidden">
-      <!-- Decoration shadow -->
-      <div class="absolute top-0 right-0 w-1/2 md:w-1/3 h-1/2 bg-primary/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+    <!-- Hero Section with Background -->
+    <section ref="heroSection" class="relative py-20 md:py-32 bg-dark overflow-hidden flex items-center min-h-[400px]">
+      <!-- Background Image -->
+      <div class="absolute inset-0 z-0 text-white">
+        <img src="/images/a-propos-bg.jpg" alt="Lumen Agency Excellence" class="w-full h-full object-cover brightness-[0.6]" />
+        <div class="absolute inset-0 bg-gradient-to-r from-dark/90 via-dark/50 to-transparent"></div>
+      </div>
       
       <div class="container mx-auto px-4 md:px-8 relative z-10">
-        <div class="max-w-4xl w-full space-y-6">
-          <h2 class="text-[10px] md:text-xs font-medium text-primary uppercase tracking-[0.3em] reveal-on-scroll">Notre Histoire</h2>
-          <h1 class="text-2xl sm:text-3xl md:text-5xl font-semibold text-white uppercase tracking-normal leading-[1.2] reveal-on-scroll delay-200">
-            Lumen Agency : <br class="sm:hidden"> L'excellence au cœur de vos projets
-          </h1>
+        <div class="max-w-4xl w-full space-y-8">
+          <div class="block w-fit py-1 px-4 bg-primary/20 border-l-4 border-primary text-primary text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] backdrop-blur-sm reveal-on-scroll">
+            Notre Histoire
+          </div>
+
+          <div class="relative inline-block">
+            <!-- Motion Line Animation -->
+            <div class="absolute -left-10 top-1/2 -translate-y-1/2 w-[calc(100%+80px)] h-px bg-primary/30 overflow-hidden pointer-events-none z-0">
+              <div v-if="heroVisible" class="w-full h-full bg-primary animate-line-sweep"></div>
+            </div>
+
+            <h1 class="relative z-10 text-2xl sm:text-3xl md:text-5xl font-semibold text-white uppercase tracking-normal leading-[1.2] flex flex-col">
+              <span class="block overflow-hidden py-1">
+                <span class="inline-block opacity-0" :class="{ 'animate-title-reveal delay-100': heroVisible }">Lumen Agency :</span>
+              </span>
+              <span class="block overflow-hidden py-1">
+                <span class="inline-block opacity-0 text-primary font-bold" :class="{ 'animate-title-reveal delay-300': heroVisible }">L'excellence au cœur</span>
+              </span>
+              <span class="block overflow-hidden py-1">
+                <span class="inline-block opacity-0" :class="{ 'animate-title-reveal delay-500': heroVisible }">de vos projets</span>
+              </span>
+            </h1>
+          </div>
+          
           <p class="text-white/60 text-base md:text-xl font-light leading-relaxed max-w-2xl reveal-on-scroll delay-400">
             Une expertise unique dédiée à la réussite de vos voyages et de vos événements, avec une rigueur absolue et un souci constant du détail.
           </p>
@@ -80,7 +118,7 @@ useHead({
 
           <!-- Vision -->
           <div class="space-y-8 reveal-on-scroll delay-300">
-            <div class="w-16 h-1 bg-secondary opacity-20"></div>
+            <div class="w-16 h-1 bg-secondary"></div>
             <h3 class="text-2xl md:text-3xl font-semibold text-dark uppercase tracking-wide">Notre Vision</h3>
             <p class="text-dark/70 text-lg leading-relaxed font-light">
               Devenir la référence absolue de l'accompagnement personnalisé dans les secteurs du voyage et de l'événementiel de luxe. Nous bâtissons l'avenir sur des valeurs d'intégrité, d'innovation dans le service et d'une quête perpétuelle de satisfaction client.

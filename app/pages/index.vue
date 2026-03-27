@@ -91,7 +91,7 @@ onMounted(() => {
                     </p>
 
                     <div class="flex flex-col sm:flex-row items-center gap-5 pt-4">
-                        <NuxtLink to="/devis"
+                        <NuxtLink to="/contact"
                             class="w-full sm:w-auto bg-primary hover:bg-accent text-white px-8 py-3.5 rounded-full font-medium uppercase tracking-wider transition-all duration-300 shadow-xl shadow-primary/30 text-center text-sm">
                             Demander un devis
                         </NuxtLink>
@@ -112,36 +112,53 @@ onMounted(() => {
         </section>
 
         <!-- Services Section -->
-        <section class="py-20 md:py-32 bg-light">
-            <div class="container mx-auto px-4">
-                <div class="text-center mb-16 md:mb-20 reveal-on-scroll">
-                    <h2 class="text-xs font-medium text-primary uppercase tracking-[0.2em] mb-4">Nos Solutions</h2>
-                    <h3 class="text-2xl md:text-3xl font-semibold text-dark uppercase tracking-wide">Services sur Mesure
+        <section class="relative py-20 md:py-32 bg-light overflow-hidden">
+            <!-- Animated Flying Planes Background Swarm -->
+            <div class="absolute inset-0 pointer-events-none opacity-30 z-0">
+                <div v-for="n in 12" :key="n" 
+                    :class="[`animate-plane-${(n % 3) + 1}`]"
+                    :style="{ 
+                        top: (n - 1) * 8 + '%',
+                        animationDelay: (n - 1) * 1.5 + 's',
+                        left: n % 2 === 0 ? '-10%' : '110%'
+                    }"
+                    class="absolute opacity-0">
+                    <svg :class="n % 2 === 0 ? 'w-6 h-6 md:w-8 md:h-8' : 'w-4 h-4 md:w-6 md:h-6'" class="text-primary/50" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M21,16V14L13,9V3.5A1.5,1.5 0 0,0 11.5,2A1.5,1.5 0 0,0 10,3.5V9L2,14V16L10,13.5V19L8,20.5V22L11.5,21L15,22V20.5L13,19V13.5L21,16Z" />
+                    </svg>
+                </div>
+            </div>
+
+            <div class="container mx-auto px-4 relative z-10">
+                <div class="flex flex-col items-center text-center mb-16 md:mb-20 reveal-on-scroll">
+                    <div class="block w-fit py-1 px-4 bg-primary/10 border-l-4 border-primary text-primary text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] mb-6 backdrop-blur-sm">
+                        Nos Solutions
+                    </div>
+                    <h3 class="text-2xl md:text-3xl font-semibold text-dark uppercase tracking-wide">
+                        Services sur Mesure d'Excellence
                     </h3>
-                    <div class="w-12 h-0.5 bg-primary/30 mx-auto mt-6"></div>
+                    <div class="w-16 h-0.5 bg-primary/30 mt-8"></div>
                 </div>
 
                 <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10">
                     <div v-for="(service, index) in services" :key="service.title"
-                        class="group p-8 bg-white border border-dark/5 hover:border-primary/20 hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500 rounded-3xl flex flex-col items-center text-center reveal-on-scroll"
+                        class="group p-8 bg-white/80 backdrop-blur-sm border border-dark/5 hover:border-primary/20 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 rounded-3xl flex flex-col items-center text-center reveal-on-scroll"
                         :class="`delay-${(index % 4) * 100 + 100}`">
                         <div
-                            class="w-16 h-16 bg-light text-primary rounded-2xl flex items-center justify-center mb-6 transition-all duration-500 group-hover:bg-primary group-hover:text-white group-hover:scale-110 group-hover:rotate-3">
+                            class="w-16 h-16 bg-light text-primary rounded-2xl flex items-center justify-center mb-6 transition-all duration-500 group-hover:bg-primary group-hover:text-white group-hover:scale-110 group-hover:rotate-3 shadow-sm group-hover:shadow-xl group-hover:shadow-primary/20">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                     :d="service.icon" />
                             </svg>
                         </div>
-                        <h4 class="text-sm font-normal text-dark uppercase tracking-wide leading-snug">
+                        <h4 class="text-sm font-normal text-dark uppercase tracking-wide leading-snug group-hover:text-primary transition-colors">
                             {{ service.title }}
                         </h4>
                     </div>
                 </div>
             </div>
-        </section>
-
-        <!-- Why Choose Us Section -->
+        </section>        <!-- Why Choose Us Section -->
         <section class="py-20 md:py-32 bg-dark">
             <div class="container mx-auto px-4 flex flex-col lg:flex-row items-center gap-16 md:gap-24">
                 <div class="w-full lg:w-1/2 space-y-6 reveal-on-scroll">
@@ -187,40 +204,36 @@ onMounted(() => {
 </template>
 
 <style scoped>
-@keyframes line-sweep {
-    0% { transform: translateX(-100%); opacity: 0; }
-    20% { opacity: 1; }
-    80% { opacity: 1; }
-    100% { transform: translateX(100%); opacity: 0; }
+@keyframes plane-1 {
+    0% { transform: translate(-100px, -100px) rotate(45deg); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translate(120vw, 80vh) rotate(45deg); opacity: 0; }
 }
 
-@keyframes title-reveal {
-    0% { transform: translateY(100%); opacity: 0; }
-    100% { transform: translateY(0); opacity: 1; }
+@keyframes plane-2 {
+    0% { transform: translate(120vw, 20vh) rotate(-135deg); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translate(-100px, 40vh) rotate(-135deg); opacity: 0; }
 }
 
-@keyframes burst {
-    0% { transform: scale(0) rotate(0deg); opacity: 0; }
-    50% { transform: scale(1.5) rotate(180deg); opacity: 1; }
-    100% { transform: scale(0) rotate(360deg); opacity: 0; }
+@keyframes plane-3 {
+    0% { transform: translate(-100px, 100vh) rotate(30deg); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translate(120vw, -20vh) rotate(30deg); opacity: 0; }
 }
 
-.animate-line-sweep {
-    animation: line-sweep 1s cubic-bezier(0.77, 0, 0.175, 1) forwards;
-}
+.animate-plane-1 { animation: plane-1 8s linear infinite; }
+.animate-plane-2 { animation: plane-2 10s linear infinite; }
+.animate-plane-3 { animation: plane-3 12s linear infinite; }
 
-.animate-title-reveal {
-    animation: title-reveal 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
-}
+/* Global animations are now in main.css */
 
-.animate-burst {
-    animation: burst 0.8s ease-out forwards;
+.animate-fade-in {
+    animation: fade-in 1s ease-out forwards;
 }
-
-.delay-100 { animation-delay: 0.1s; }
-.delay-300 { animation-delay: 0.3s; }
-.delay-500 { animation-delay: 0.5s; }
-.delay-700 { animation-delay: 0.7s; }
 
 @keyframes fade-in {
     from {
@@ -232,10 +245,6 @@ onMounted(() => {
         opacity: 1;
         transform: translateY(0);
     }
-}
-
-.animate-fade-in {
-    animation: fade-in 1s ease-out forwards;
 }
 
 /* Background image ken burns effect */

@@ -1,11 +1,16 @@
 <template>
-  <div class="flex flex-col min-h-screen bg-light font-sans selection:bg-primary selection:text-white antialiased">
+  <div class="flex flex-col min-h-screen bg-light font-sans selection:bg-primary selection:text-white antialiased overflow-x-hidden">
+    <!-- Global Scroll Progress Bar -->
+    <div class="fixed top-0 left-0 w-full h-1 z-[150] pointer-events-none">
+      <div class="h-full bg-primary transition-all duration-150 ease-out shadow-[0_0_10px_rgba(242,144,4,0.5)]" :style="{ width: `${scrollProgress}%` }"></div>
+    </div>
+
     <!-- Header component (Fixed) -->
     <Header />
 
     <!-- Main Content Area -->
     <!-- We add pt-20 (80px) to compensate for the fixed header height -->
-    <main class="flex-grow pt-20 overflow-x-hidden">
+    <main class="flex-grow pt-20">
       <!-- Page content slot -->
       <slot />
     </main>
@@ -44,9 +49,17 @@
  * Layout par défaut de Lumen Agency
  */
 const isScrolled = ref(false);
+const scrollProgress = ref(0);
 
 const handleScroll = () => {
     isScrolled.value = window.scrollY > 400;
+    
+    // Calculate global scroll progress
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    if (height > 0) {
+        scrollProgress.value = (winScroll / height) * 100;
+    }
 };
 
 const scrollToTop = () => {

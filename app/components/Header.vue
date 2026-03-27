@@ -1,4 +1,5 @@
 <script setup>
+const route = useRoute();
 const isMenuOpen = ref(false);
 
 const navLinks = [
@@ -16,7 +17,7 @@ const navLinks = [
       <div class="flex items-center justify-between h-20">
         <!-- Logo -->
         <NuxtLink to="/" class="flex items-center gap-2 group">
-          <img src="/images/logo-2-noir.png" alt="Lumen Agency Logo" class="h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105" />
+          <img src="/images/logo-fond-blanc.png" alt="Lumen Agency Logo" class="h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105" />
         </NuxtLink>
 
         <!-- Desktop Menu -->
@@ -25,17 +26,20 @@ const navLinks = [
             v-for="link in navLinks" 
             :key="link.path" 
             :to="link.path"
+            active-class="text-primary"
+            exact-active-class="text-primary"
             class="text-sm font-semibold uppercase tracking-widest text-dark hover:text-primary transition-colors duration-300 relative group"
           >
             {{ link.name }}
-            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+            <span class="absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-300"
+                  :class="[route.path === link.path ? 'w-full' : 'w-0 group-hover:w-full']"></span>
           </NuxtLink>
         </nav>
 
         <!-- Desktop CTA -->
         <div class="hidden md:block">
           <NuxtLink 
-            to="/devis" 
+            to="/contact" 
             class="bg-primary hover:bg-accent text-white px-6 py-3 rounded-full text-sm font-bold uppercase tracking-widest shadow-lg shadow-primary/20 transition-all duration-300 hover:scale-105 active:scale-95"
           >
             Demander un devis
@@ -71,12 +75,14 @@ const navLinks = [
             :key="link.path" 
             :to="link.path"
             @click="isMenuOpen = false"
+            active-class="text-primary"
+            exact-active-class="text-primary underline decoration-2 underline-offset-8"
             class="text-lg font-bold uppercase tracking-widest text-dark hover:text-primary transition-colors"
           >
             {{ link.name }}
           </NuxtLink>
           <NuxtLink 
-            to="/devis" 
+            to="/contact" 
             @click="isMenuOpen = false"
             class="w-full text-center bg-primary text-white py-4 rounded-full font-bold uppercase tracking-widest"
           >
