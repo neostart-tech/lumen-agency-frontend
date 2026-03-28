@@ -1,27 +1,17 @@
 import { defineStore } from "pinia";
 
-export interface BlogImage {
-  id: string;
-  path: string;
-  blog_id: string;
-  is_couverture: boolean;
-  created_at: string;
-  updated_at: string;
-}
-
-export interface Blog {
+export interface Service {
   id: string;
   titre: string;
-  contenu: string;
-  categorie: string;
-  images: BlogImage[];
+  description?: string;
+  image?: string;
   created_at: string;
   updated_at: string;
 }
 
-export const useBlogStore = defineStore("blog", {
+export const useServiceStore = defineStore("service", {
   state: () => ({
-    blogs: [] as Blog[],
+    services: [] as Service[],
     loading: false,
   }),
 
@@ -31,8 +21,8 @@ export const useBlogStore = defineStore("blog", {
       this.loading = true;
 
       try {
-        const res: any = await $api("/blogs");
-        this.blogs = res || [];
+        const res: any = await $api("/services");
+        this.services = res;
         return res;
       } catch (error: any) {
         throw error;
@@ -46,8 +36,8 @@ export const useBlogStore = defineStore("blog", {
       this.loading = true;
 
       try {
-        const res: any = await $api(`/blogs/${id}`);
-        return res as Blog;
+        const res: any = await $api(`/services/${id}`);
+        return res as Service;
       } catch (error: any) {
         throw error;
       } finally {
@@ -60,13 +50,13 @@ export const useBlogStore = defineStore("blog", {
       this.loading = true;
 
       try {
-        const res: any = await $api("/blogs", {
+        const res: any = await $api("/services", {
           method: "POST",
           body: formData,
         });
 
         // Mise à jour locale
-        this.blogs.unshift(res.data);
+        this.services.unshift(res.data);
         return res;
       } catch (error: any) {
         throw error;
@@ -80,17 +70,18 @@ export const useBlogStore = defineStore("blog", {
       this.loading = true;
 
       try {
-        if (!formData.has('_method')) formData.append('_method', 'PUT');
+        // Laravel PUT with files needs `_method: 'PUT'` via a POST request
+        if (!formData.has('_method')) formData.append('_method', 'POST');
 
-        const res: any = await $api(`/blogs/${id}`, {
+        const res: any = await $api(`/services/${id}`, {
           method: "POST",
           body: formData,
         });
 
         // Mise à jour locale
-        const index = this.blogs.findIndex(b => b.id === id);
+        const index = this.services.findIndex(s => s.id === id);
         if (index !== -1) {
-          this.blogs[index] = res;
+          this.services[index] = res.data;
         }
 
         return res;
@@ -106,12 +97,12 @@ export const useBlogStore = defineStore("blog", {
       this.loading = true;
 
       try {
-        await $api(`/blogs/${id}`, {
+        await $api(`/services/${id}`, {
           method: "DELETE",
         });
 
         // Mise à jour locale
-        this.blogs = this.blogs.filter(b => b.id !== id);
+        this.services = this.services.filter(s => s.id !== id);
       } catch (error: any) {
         throw error;
       } finally {

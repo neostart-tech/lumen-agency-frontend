@@ -56,28 +56,39 @@ onMounted(() => {
 
                     <div class="relative inline-block">
                         <!-- Motion Line Animation -->
-                        <div class="absolute -left-10 top-1/2 -translate-y-1/2 w-[calc(100%+80px)] h-0.5 bg-primary/30 overflow-hidden pointer-events-none z-0">
+                        <div
+                            class="absolute -left-10 top-1/2 -translate-y-1/2 w-[calc(100%+80px)] h-0.5 bg-primary/30 overflow-hidden pointer-events-none z-0">
                             <div v-if="heroVisible" class="w-full h-full bg-primary animate-line-sweep"></div>
                         </div>
 
-                        <h1 class="relative z-10 text-3xl md:text-5xl font-semibold text-white uppercase leading-[1.2] tracking-normal flex flex-col">
+                        <h1
+                            class="relative z-10 text-3xl md:text-5xl font-semibold text-white uppercase leading-[1.2] tracking-normal flex flex-col">
                             <span class="block overflow-hidden py-1">
-                                <span class="inline-block opacity-0" :class="{ 'animate-title-reveal delay-100': heroVisible }">Votre partenaire en</span>
+                                <span class="inline-block opacity-0"
+                                    :class="{ 'animate-title-reveal delay-100': heroVisible }">Votre partenaire
+                                    en</span>
                             </span>
                             <span class="block overflow-hidden py-1">
-                                <span class="inline-block opacity-0 flex flex-wrap gap-x-3" :class="{ 'animate-title-reveal delay-500': heroVisible }">
+                                <span class="inline-block opacity-0 flex flex-wrap gap-x-3"
+                                    :class="{ 'animate-title-reveal delay-500': heroVisible }">
                                     <span class="relative">
                                         <span class="text-primary font-bold">voyage</span>
                                         <!-- Mini Burst Animation -->
-                                        <span v-if="heroVisible" class="absolute -top-2 -right-2 w-4 h-4 text-primary animate-burst opacity-0 pointer-events-none">
-                                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l3 9h9l-7 5 3 9-8-6-8 6 3-9-7-5h9z"/></svg>
+                                        <span v-if="heroVisible"
+                                            class="absolute -top-2 -right-2 w-4 h-4 text-primary animate-burst opacity-0 pointer-events-none">
+                                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M12 0l3 9h9l-7 5 3 9-8-6-8 6 3-9-7-5h9z" />
+                                            </svg>
                                         </span>
                                     </span>
                                     et
                                     <span class="relative">
                                         <span class="text-primary font-bold">événementiel</span>
-                                        <span v-if="heroVisible" class="absolute -top-2 -right-2 w-4 h-4 text-primary animate-burst delay-700 opacity-0 pointer-events-none">
-                                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l3 9h9l-7 5 3 9-8-6-8 6 3-9-7-5h9z"/></svg>
+                                        <span v-if="heroVisible"
+                                            class="absolute -top-2 -right-2 w-4 h-4 text-primary animate-burst delay-700 opacity-0 pointer-events-none">
+                                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M12 0l3 9h9l-7 5 3 9-8-6-8 6 3-9-7-5h9z" />
+                                            </svg>
                                         </span>
                                     </span>
                                 </span>
@@ -91,7 +102,7 @@ onMounted(() => {
                     </p>
 
                     <div class="flex flex-col sm:flex-row items-center gap-5 pt-4">
-                        <NuxtLink to="/contact"
+                        <NuxtLink to="/contact?type=devis"
                             class="w-full sm:w-auto bg-primary hover:bg-accent text-white px-8 py-3.5 rounded-full font-medium uppercase tracking-wider transition-all duration-300 shadow-xl shadow-primary/30 text-center text-sm">
                             Demander un devis
                         </NuxtLink>
@@ -115,23 +126,23 @@ onMounted(() => {
         <section class="relative py-20 md:py-32 bg-light overflow-hidden">
             <!-- Animated Flying Planes Background Swarm -->
             <div class="absolute inset-0 pointer-events-none opacity-30 z-0">
-                <div v-for="n in 12" :key="n" 
-                    :class="[`animate-plane-${(n % 3) + 1}`]"
-                    :style="{ 
-                        top: (n - 1) * 8 + '%',
-                        animationDelay: (n - 1) * 1.5 + 's',
-                        left: n % 2 === 0 ? '-10%' : '110%'
-                    }"
-                    class="absolute opacity-0">
-                    <svg :class="n % 2 === 0 ? 'w-6 h-6 md:w-8 md:h-8' : 'w-4 h-4 md:w-6 md:h-6'" class="text-primary/50" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M21,16V14L13,9V3.5A1.5,1.5 0 0,0 11.5,2A1.5,1.5 0 0,0 10,3.5V9L2,14V16L10,13.5V19L8,20.5V22L11.5,21L15,22V20.5L13,19V13.5L21,16Z" />
+                <div v-for="n in 12" :key="n" :class="[`animate-plane-${(n % 3) + 1}`]" :style="{
+                    top: (n - 1) * 8 + '%',
+                    animationDelay: (n - 1) * 1.5 + 's',
+                    left: n % 2 === 0 ? '-10%' : '110%'
+                }" class="absolute opacity-0">
+                    <svg :class="n % 2 === 0 ? 'w-6 h-6 md:w-8 md:h-8' : 'w-4 h-4 md:w-6 md:h-6'"
+                        class="text-primary/50" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M21,16V14L13,9V3.5A1.5,1.5 0 0,0 11.5,2A1.5,1.5 0 0,0 10,3.5V9L2,14V16L10,13.5V19L8,20.5V22L11.5,21L15,22V20.5L13,19V13.5L21,16Z" />
                     </svg>
                 </div>
             </div>
 
             <div class="container mx-auto px-4 relative z-10">
                 <div class="flex flex-col items-center text-center mb-16 md:mb-20 reveal-on-scroll">
-                    <div class="block w-fit py-1 px-4 bg-primary/10 border-l-4 border-primary text-primary text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] mb-6 backdrop-blur-sm">
+                    <div
+                        class="block w-fit py-1 px-4 bg-primary/10 border-l-4 border-primary text-primary text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] mb-6 backdrop-blur-sm">
                         Nos Solutions
                     </div>
                     <h3 class="text-2xl md:text-3xl font-semibold text-dark uppercase tracking-wide">
@@ -152,13 +163,14 @@ onMounted(() => {
                                     :d="service.icon" />
                             </svg>
                         </div>
-                        <h4 class="text-sm font-normal text-dark uppercase tracking-wide leading-snug group-hover:text-primary transition-colors">
+                        <h4
+                            class="text-sm font-normal text-dark uppercase tracking-wide leading-snug group-hover:text-primary transition-colors">
                             {{ service.title }}
                         </h4>
                     </div>
                 </div>
             </div>
-        </section>        <!-- Why Choose Us Section -->
+        </section> <!-- Why Choose Us Section -->
         <section class="py-20 md:py-32 bg-dark">
             <div class="container mx-auto px-4 flex flex-col lg:flex-row items-center gap-16 md:gap-24">
                 <div class="w-full lg:w-1/2 space-y-6 reveal-on-scroll">
@@ -205,29 +217,76 @@ onMounted(() => {
 
 <style scoped>
 @keyframes plane-1 {
-    0% { transform: translate(-100px, -100px) rotate(45deg); opacity: 0; }
-    10% { opacity: 1; }
-    90% { opacity: 1; }
-    100% { transform: translate(120vw, 80vh) rotate(45deg); opacity: 0; }
+    0% {
+        transform: translate(-100px, -100px) rotate(45deg);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(120vw, 80vh) rotate(45deg);
+        opacity: 0;
+    }
 }
 
 @keyframes plane-2 {
-    0% { transform: translate(120vw, 20vh) rotate(-135deg); opacity: 0; }
-    10% { opacity: 1; }
-    90% { opacity: 1; }
-    100% { transform: translate(-100px, 40vh) rotate(-135deg); opacity: 0; }
+    0% {
+        transform: translate(120vw, 20vh) rotate(-135deg);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(-100px, 40vh) rotate(-135deg);
+        opacity: 0;
+    }
 }
 
 @keyframes plane-3 {
-    0% { transform: translate(-100px, 100vh) rotate(30deg); opacity: 0; }
-    10% { opacity: 1; }
-    90% { opacity: 1; }
-    100% { transform: translate(120vw, -20vh) rotate(30deg); opacity: 0; }
+    0% {
+        transform: translate(-100px, 100vh) rotate(30deg);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(120vw, -20vh) rotate(30deg);
+        opacity: 0;
+    }
 }
 
-.animate-plane-1 { animation: plane-1 8s linear infinite; }
-.animate-plane-2 { animation: plane-2 10s linear infinite; }
-.animate-plane-3 { animation: plane-3 12s linear infinite; }
+.animate-plane-1 {
+    animation: plane-1 8s linear infinite;
+}
+
+.animate-plane-2 {
+    animation: plane-2 10s linear infinite;
+}
+
+.animate-plane-3 {
+    animation: plane-3 12s linear infinite;
+}
 
 /* Global animations are now in main.css */
 
