@@ -252,7 +252,7 @@ const updateBlog = async () => {
 
     // Si nouvelle couverture
     if (form.value.couvertureFile) {
-      formData.append('images[]', form.value.couvertureFile);
+      formData.append('couverture', form.value.couvertureFile);
     }
 
     // Nouvelles images de galerie

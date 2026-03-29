@@ -22,7 +22,7 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: "Lumen Agency",
+      title: "Lumen Agency | Votre partenaire en voyage et evenementiel",
       meta: [
         {
           name: "description",

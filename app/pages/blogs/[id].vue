@@ -11,8 +11,27 @@ const heroSection = ref(null);
 const blog = ref(null);
 const isLoading = ref(true);
 const recentBlogs = ref([]);
+const isLightboxOpen = ref(false);
+const activeImageUrl = ref('');
+
+const openLightbox = (url) => {
+    activeImageUrl.value = url;
+    isLightboxOpen.value = true;
+    document.body.style.overflow = 'hidden';
+};
+
+const closeLightbox = () => {
+    isLightboxOpen.value = false;
+    document.body.style.overflow = 'auto';
+};
 
 onMounted(async () => {
+    const heroObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            heroVisible.value = entry.isIntersecting;
+        });
+    }, { threshold: 0.1 });
+
     try {
         blog.value = await blogStore.show(id);
 
@@ -24,47 +43,51 @@ onMounted(async () => {
             .filter(b => b.id !== id)
             .slice(0, 3);
 
+        isLoading.value = false;
+        await nextTick();
+        if (heroSection.value) heroObserver.observe(heroSection.value);
+
     } catch (e) {
         console.error('Erreur chargement blog:', e);
-    } finally {
         isLoading.value = false;
     }
-
-    // Hero reveal observer
-    const heroObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            heroVisible.value = entry.isIntersecting;
-        });
-    }, { threshold: 0.1 });
-    if (heroSection.value) heroObserver.observe(heroSection.value);
-
-    // Reveal observer
-    const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-                revealObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-    document.querySelectorAll('.reveal-on-scroll').forEach((el) => {
-        revealObserver.observe(el);
-    });
 });
 
 const getCoverImage = (b) => {
-    if (!b) return '';
-    const cover = b.images?.find(img => img.is_couverture);
-    if (cover) return config.public.storageBase + '/' + cover.path;
-    if (b.images && b.images.length > 0) return config.public.storageBase + '/' + b.images[0].path;
-    return '/images/placeholder-blog.jpg';
+    if (!b || !b.images) return '/images/placeholder-blog.jpg';
+    const cover = b.images.find(img => img.is_couverture);
+    const path = cover ? cover.path : (b.images.length > 0 ? b.images[0].path : null);
+
+    if (!path) return '/images/placeholder-blog.jpg';
+    if (path.startsWith('http')) return path;
+    return `${config.public.storageBase}/${path}`;
 };
+
+const getImageUrl = (path) => {
+    if (!path) return '';
+    if (path.startsWith('http')) return path;
+    return `${config.public.storageBase}/${path}`;
+};
+
+const galleryImages = computed(() => {
+    if (!blog.value || !blog.value.images) return [];
+    const cover = blog.value.images.find(img => img.is_couverture);
+    return blog.value.images.filter(img => img.id !== cover?.id);
+});
 
 const formatDate = (dateStr) => {
     if (!dateStr) return '';
     const date = new Date(dateStr);
     return new Intl.DateTimeFormat('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' }).format(date);
+};
+
+const calculateReadingTime = (content) => {
+    if (!content) return 1;
+    const wordsPerMinute = 200;
+    const plainText = content.replace(/<[^>]*>/g, '');
+    const noOfWords = plainText.trim().split(/\s+/).length;
+    const minutes = Math.ceil(noOfWords / wordsPerMinute);
+    return minutes || 1;
 };
 
 const shareUrl = computed(() => {
@@ -119,7 +142,7 @@ useHead({
             <section ref="heroSection"
                 class="relative py-20 md:py-32 bg-dark overflow-hidden flex items-center min-h-[400px] mb-20">
                 <!-- Background Image -->
-                <div class="absolute inset-0 z-0 opacity-60">
+                <div class="absolute inset-0 z-0 opacity-60 cursor-zoom-in" @click="openLightbox(getCoverImage(blog))">
                     <img :src="getCoverImage(blog)" :alt="blog.titre" class="w-full h-full object-cover" />
                     <div class="absolute inset-0 bg-gradient-to-b from-dark/60 via-transparent to-dark/40"></div>
                     <div class="absolute inset-0 bg-gradient-to-r from-dark/80 via-dark/20 to-transparent"></div>
@@ -128,10 +151,12 @@ useHead({
                 <div class="container mx-auto px-4 md:px-8 relative z-10">
                     <div class="max-w-4xl space-y-8">
                         <div
-                            class="flex items-center gap-4 text-[10px] font-bold text-primary uppercase tracking-[0.3em] reveal-on-scroll">
+                            class="flex items-center gap-4 text-[10px] font-bold text-primary uppercase tracking-[0.3em]">
                             <span>{{ blog.categorie }}</span>
                             <span class="w-8 h-px bg-primary/30"></span>
                             <span>{{ formatDate(blog.created_at) }}</span>
+                            <span class="w-1 h-1 rounded-full bg-primary/40"></span>
+                            <span>{{ calculateReadingTime(blog.contenu) }} min de lecture</span>
                         </div>
 
                         <div class="relative inline-block">
@@ -142,19 +167,22 @@ useHead({
                             </div>
 
                             <h1
-                                class="relative z-10 text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-semibold text-white uppercase tracking-tight leading-[1.1] flex flex-col">
-                                <span class="block py-1">
-                                    {{ blog.titre }}
+                                class="relative z-10 text-2xl sm:text-3xl md:text-5xl font-semibold text-white uppercase tracking-normal leading-[1.2] flex flex-col">
+                                <span class="block overflow-hidden py-1">
+                                    <span class="inline-block opacity-0"
+                                        :class="{ 'animate-title-reveal delay-100': heroVisible }">
+                                        {{ blog.titre }}
+                                    </span>
                                 </span>
                             </h1>
                         </div>
 
                         <!-- Author Placeholder (since backend currently has no author) -->
-                        <div class="flex items-center gap-6 pt-4 reveal-on-scroll delay-400">
+                        <div class="flex items-center gap-6 pt-4">
                             <div class="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 p-1">
                                 <div
                                     class="w-full h-full rounded-xl bg-primary/20 flex items-center justify-center overflow-hidden">
-                                    <img src="/images/logo-fond-blanc.png" class="w-8 h-8 object-contain" />
+                                    <img src="/images/logo-2-mixte.png" class="w-8 h-8 object-contain" />
                                 </div>
                             </div>
                             <div class="text-left">
@@ -172,9 +200,36 @@ useHead({
                 <div class="max-w-6xl mx-auto flex flex-col lg:flex-row gap-16">
 
                     <!-- Content Column -->
-                    <article class="w-full lg:w-3/4 reveal-on-scroll">
+                    <article class="w-full lg:w-3/4">
                         <div class="prose prose-lg max-w-none text-dark/70 font-light article-content"
                             v-html="blog.contenu"></div>
+
+                        <!-- Gallery Section -->
+                        <div v-if="galleryImages.length > 0" class="mt-20 space-y-8">
+                            <div class="flex items-center gap-4">
+                                <h3 class="text-xl font-bold text-dark uppercase tracking-[0.3em]">Galerie Photos</h3>
+                                <div class="flex-1 h-px bg-dark/10"></div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div v-for="img in galleryImages" :key="img.id"
+                                    @click="openLightbox(getImageUrl(img.path))"
+                                    class="group relative aspect-[4/3] overflow-hidden rounded-[2.5rem] bg-dark/5 shadow-lg cursor-zoom-in">
+                                    <img :src="getImageUrl(img.path)"
+                                        class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
+                                    <div
+                                        class="absolute inset-0 bg-dark/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
+                                        <div
+                                            class="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <!-- Share -->
                         <div
@@ -276,60 +331,131 @@ useHead({
                     magazine</NuxtLink>
             </div>
         </div>
+        <!-- Lightbox Modal -->
+        <Teleport to="body">
+            <Transition name="fade">
+                <div v-if="isLightboxOpen"
+                    class="fixed inset-0 z-[100] flex items-center justify-center bg-dark/95 backdrop-blur-xl p-4 md:p-12"
+                    @click="closeLightbox">
+                    <!-- Close Button -->
+                    <button
+                        class="absolute top-8 right-8 w-12 h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-primary hover:border-primary transition-all z-[110]">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+
+                    <div class="relative max-w-5xl max-h-full flex items-center justify-center" @click.stop>
+                        <img :src="activeImageUrl" class="w-auto h-auto max-w-full max-h-full rounded-2xl shadow-2xl" />
+                    </div>
+                </div>
+            </Transition>
+        </Teleport>
     </div>
 </template>
 
 <style scoped>
-.reveal-on-scroll {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.reveal-on-scroll.active {
-    opacity: 1;
-    transform: translateY(0);
-}
 
 .article-content :deep(h2) {
-    font-size: 1.875rem;
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: var(--color-dark);
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    position: relative;
+    display: block;
+    line-height: 1.2;
+}
+
+.article-content :deep(h3) {
+    font-size: 1.5rem;
     font-weight: 700;
     color: var(--color-dark);
     margin-top: 3rem;
     margin-bottom: 1.5rem;
     text-transform: uppercase;
-    letter-spacing: -0.025em;
-    position: relative;
-    display: inline-block;
-}
-
-.article-content :deep(h2::after) {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 0;
-    width: 60px;
-    height: 3px;
-    background-color: var(--color-primary);
+    letter-spacing: 0.05em;
 }
 
 .article-content :deep(p) {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
+    line-height: 1.9;
+    font-size: 1.125rem;
+    color: rgba(var(--color-dark-rgb), 0.75);
+}
+
+.article-content :deep(ul), .article-content :deep(ol) {
+    margin-bottom: 2.5rem;
+    padding-left: 1.5rem;
+}
+
+.article-content :deep(li) {
+    margin-bottom: 0.75rem;
     line-height: 1.8;
+}
+
+.article-content :deep(ul) {
+    list-style-type: none;
+}
+
+.article-content :deep(ul li) {
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.article-content :deep(ul li::before) {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.75rem;
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-primary);
+    border-radius: 50%;
 }
 
 .article-content :deep(blockquote) {
     border-left: 4px solid var(--color-primary);
-    padding-left: 2rem;
-    margin: 3rem 0;
+    padding: 1.5rem 2.5rem;
+    margin: 4rem 0;
     font-style: italic;
-    font-size: 1.5rem;
-    color: rgba(var(--color-dark-rgb), 0.8);
+    font-size: 1.75rem;
+    line-height: 1.5;
+    background: rgba(var(--color-primary-rgb), 0.03);
+    border-radius: 0 2rem 2rem 0;
+    color: var(--color-dark);
 }
 
 .article-content :deep(img) {
-    border-radius: 2rem;
-    margin: 3rem 0;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+    border-radius: 2.5rem;
+    margin: 4rem auto;
+    box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.15);
+    display: block;
+    max-width: 100%;
+}
+
+/* Quill alignment support */
+.article-content :deep(.ql-align-center) {
+    text-align: center;
+}
+.article-content :deep(.ql-align-right) {
+    text-align: right;
+}
+.article-content :deep(.ql-align-justify) {
+    text-align: justify;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.4s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
 }
 </style>

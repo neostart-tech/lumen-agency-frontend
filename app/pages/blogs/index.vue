@@ -20,16 +20,12 @@ const scrollCategories = (direction) => {
 };
 
 onMounted(() => {
-  blogStore.fetch();
-  serviceStore.fetch();
-
   // Hero reveal observer
   const heroObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       heroVisible.value = entry.isIntersecting;
     });
   }, { threshold: 0.1 });
-  if (heroSection.value) heroObserver.observe(heroSection.value);
 
   // General reveal-on-scroll observer
   const revealObserver = new IntersectionObserver((entries) => {
@@ -41,8 +37,25 @@ onMounted(() => {
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-  document.querySelectorAll('.reveal-on-scroll').forEach((el) => {
-    revealObserver.observe(el);
+  const initObservers = () => {
+    if (heroSection.value) heroObserver.observe(heroSection.value);
+    document.querySelectorAll('.reveal-on-scroll').forEach((el) => {
+      revealObserver.observe(el);
+    });
+  }
+
+  blogStore.fetch().then(async () => {
+    await nextTick();
+    initObservers();
+  });
+  serviceStore.fetch();
+
+  // Also watch pagination/category changes to re-observe cards
+  watch([paginatedBlogs, activeCategory], async () => {
+    await nextTick();
+    document.querySelectorAll('.reveal-on-scroll').forEach((el) => {
+      revealObserver.observe(el);
+    });
   });
 });
 
@@ -76,10 +89,13 @@ const paginatedBlogs = computed(() => {
 const totalPages = computed(() => Math.ceil(filteredBlogs.value.length / itemsPerPage));
 
 const getCoverImage = (blog) => {
-  const cover = blog.images?.find(img => img.is_couverture);
-  if (cover) return config.public.storageBase + '/' + cover.path;
-  if (blog.images && blog.images.length > 0) return config.public.storageBase + '/' + blog.images[0].path;
-  return '/images/placeholder-blog.jpg';
+  if (!blog || !blog.images) return '/images/placeholder-blog.jpg';
+  const cover = blog.images.find(img => img.is_couverture);
+  const path = cover ? cover.path : (blog.images.length > 0 ? blog.images[0].path : null);
+  
+  if (!path) return '/images/placeholder-blog.jpg';
+  if (path.startsWith('http')) return path;
+  return `${config.public.storageBase}/${path}`;
 };
 
 const formatDate = (dateStr) => {
@@ -92,6 +108,15 @@ const getExcerpt = (content) => {
   if (!content) return '';
   const plainText = content.replace(/<[^>]*>/g, '');
   return plainText.length > 120 ? plainText.substring(0, 120) + '...' : plainText;
+};
+
+const calculateReadingTime = (content) => {
+  if (!content) return 1;
+  const wordsPerMinute = 200;
+  const plainText = content.replace(/<[^>]*>/g, '');
+  const noOfWords = plainText.trim().split(/\s+/).length;
+  const minutes = Math.ceil(noOfWords / wordsPerMinute);
+  return minutes || 1;
 };
 
 // Defensive texts for empty state to avoid long lines in template
@@ -245,8 +270,10 @@ watch(activeCategory, () => {
 
                   <!-- Content -->
                   <div class="p-8 space-y-5 flex flex-col h-[calc(100%-16rem)]">
-                    <div class="flex items-center gap-4 text-[10px] font-bold text-dark/40 uppercase tracking-widest">
+                    <div class="flex items-center gap-3 text-[10px] font-bold text-dark/40 uppercase tracking-widest">
                       <span>{{ formatDate(blog.created_at) }}</span>
+                      <span class="w-1 h-1 rounded-full bg-primary/40"></span>
+                      <span>{{ calculateReadingTime(blog.contenu) }} min de lecture</span>
                     </div>
 
                     <h3

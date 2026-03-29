@@ -209,10 +209,12 @@ const saveBlog = async () => {
     formData.append('categorie', form.value.categorie);
     formData.append('contenu', form.value.contenu);
 
-    // On ajoute la couverture en premier avec un flag si nécessaire, ou on gère côté backend
-    // Ici on suppose que le backend prend un tableau d'images
-    formData.append('images[]', form.value.couvertureFile);
+    // Image de couverture spécifique
+    if (form.value.couvertureFile) {
+      formData.append('couverture', form.value.couvertureFile);
+    }
 
+    // Galerie d'images
     form.value.galerie.forEach(item => {
       formData.append('images[]', item.file);
     });

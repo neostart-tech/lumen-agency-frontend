@@ -29,13 +29,30 @@
       leave-active-class="transition duration-300 ease-in" leave-from-class="opacity-100 translate-y-0 scale-100"
       leave-to-class="opacity-0 translate-y-10 scale-50">
       <button v-if="isScrolled" @click="scrollToTop"
-        class="fixed bottom-8 right-8 z-[100] w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center hover:bg-accent transition-all duration-300 shadow-[0_10px_30px_rgba(242,144,4,0.4)] hover:shadow-primary/50 group active:scale-90 border border-white/10"
+        class="fixed bottom-8 right-8 z-[100] w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center hover:bg-accent transition-all duration-300 shadow-[0_10px_30px_rgba(242,144,4,0.4)] hover:shadow-primary/50 group active:scale-95 border border-white/10"
+        :class="{ 'animate-shake-launch': isLaunching }"
         aria-label="Back to Top">
+        <!-- Main Caret -->
         <svg xmlns="http://www.w3.org/2000/svg"
-          class="w-6 h-6 transition-transform duration-300 group-hover:-translate-y-1" fill="none" viewBox="0 0 24 24"
+          class="w-6 h-6 transition-all duration-300" 
+          :class="[isLaunching ? 'opacity-0 -translate-y-12' : 'animate-bounce-slow opacity-100 translate-y-0']" 
+          fill="none" viewBox="0 0 24 24"
           stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 15l7-7 7 7" />
         </svg>
+
+        <!-- Launch Trail -->
+        <div v-if="isLaunching" class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+          <div v-for="i in 5" :key="i" 
+               class="absolute text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.8)] animate-launch-trail"
+               :style="{ animationDelay: `${(i - 1) * 0.12}s` }">
+               <svg xmlns="http://www.w3.org/2000/svg"
+                  class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 15l7-7 7 7" />
+                </svg>
+          </div>
+        </div>
       </button>
     </Transition>
   </div>
@@ -60,13 +77,20 @@ const handleScroll = () => {
 };
 
 const scrollToTop = () => {
+  isLaunching.value = true;
   window.scrollTo({
     top: 0,
     behavior: 'smooth'
   });
+  
+  // Reset after scroll usually finishes
+  setTimeout(() => {
+    isLaunching.value = false;
+  }, 800);
 };
 
 const route = useRoute();
+const isLaunching = ref(false);
 let revealObserver = null;
 
 const initRevealObserver = () => {
@@ -159,5 +183,34 @@ body {
 .page-leave-to {
   opacity: 0;
   transform: translateY(10px);
+}
+
+@keyframes bounce-custom {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes launch-trail {
+  0% { transform: translateY(0) scale(0.5); opacity: 0; }
+  20% { opacity: 1; transform: translateY(-20px) scale(1.2); }
+  100% { transform: translateY(-180px) scale(0.8); opacity: 0; }
+}
+
+@keyframes shake-launch {
+  0%, 100% { transform: scale(1); }
+  25% { transform: scale(1.1) rotate(-3deg); }
+  75% { transform: scale(1.1) rotate(3deg); }
+}
+
+.animate-launch-trail {
+  animation: launch-trail 1s cubic-bezier(0.2, 0, 0.2, 1) infinite;
+}
+
+.animate-shake-launch {
+  animation: shake-launch 0.15s ease-in-out infinite;
+}
+
+.animate-bounce-slow {
+  animation: bounce-custom 0.5s infinite ease-in-out;
 }
 </style>
