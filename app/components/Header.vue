@@ -22,7 +22,7 @@ const navLinks = [
         </NuxtLink>
 
         <!-- Desktop Menu -->
-        <nav class="hidden md:flex items-center gap-10">
+        <nav class="hidden md:flex items-center gap-10 ml-auto mr-24">
           <NuxtLink v-for="link in navLinks" :key="link.path" :to="link.path" active-class="text-primary"
             exact-active-class="text-primary"
             class="text-sm font-semibold uppercase tracking-widest text-dark hover:text-primary transition-colors duration-300 relative group">

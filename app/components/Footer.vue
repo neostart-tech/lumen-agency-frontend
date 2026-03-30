@@ -52,30 +52,30 @@ const socials = computed(() => {
 </script>
 
 <template>
-  <footer class="bg-dark text-white pt-24 pb-12 px-4 md:px-8 overflow-hidden relative border-t border-white/5">
+  <footer class="bg-light text-dark pt-24 pb-12 px-4 md:px-8 overflow-hidden relative border-t border-dark/5">
     <!-- Premium Architectural Background Elements -->
     <div
-      class="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2 pointer-events-none">
+      class="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2 pointer-events-none">
     </div>
     <div
-      class="absolute bottom-0 left-0 w-[300px] h-[300px] bg-accent/5 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2 pointer-events-none">
+      class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-secondary/5 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2 pointer-events-none">
     </div>
 
     <!-- Fine lines pattern -->
     <div class="absolute inset-0 opacity-[0.03] pointer-events-none"
-      style="background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0); background-size: 40px 40px;">
+      style="background-image: radial-gradient(circle at 1px 1px, #1A1A1A 1px, transparent 0); background-size: 40px 40px;">
     </div>
 
     <div class="container mx-auto relative z-10 px-4">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-16 md:gap-12 mb-20">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-16 md:gap-12 mb-10">
 
         <!-- Brand Section -->
-        <div class="lg:col-span-4 space-y-8">
+        <div class="lg:col-span-3 space-y-8">
           <NuxtLink to="/" class="flex items-center gap-2 group w-fit">
-            <img src="/images/logo-2-mixte.png" alt="Lumen Agency Logo"
+            <img src="/images/logo-fond-blanc.png" alt="Lumen Agency Logo"
               class="h-14 w-auto object-contain transition-transform duration-500 group-hover:scale-105" />
           </NuxtLink>
-          <p class="text-white/50 text-base leading-relaxed max-w-sm font-light">
+          <p class="text-dark/60 text-base leading-relaxed max-w-sm font-light">
             L'expert du voyage, de l'événementiel et de l'assistance aéroportuaire. Une excellence au service de votre
             mobilité et de vos projets d'exception.
           </p>
@@ -84,10 +84,11 @@ const socials = computed(() => {
             <h4 class="text-[10px] font-bold text-primary uppercase tracking-[0.4em]">Nous suivre</h4>
             <div class="flex items-center gap-3">
               <a v-for="social in socials" :key="social.name" :href="social.path" target="_blank"
-                class="w-11 h-11 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center hover:bg-primary hover:border-primary hover:-translate-y-1 transition-all duration-300 group"
+                class="w-11 h-11 bg-dark/5 border border-dark/10 rounded-2xl flex items-center justify-center hover:bg-primary hover:border-primary hover:text-white hover:-translate-y-1 transition-all duration-300 group"
                 :aria-label="social.name">
                 <svg xmlns="http://www.w3.org/2000/svg"
-                  class="w-5 h-5 fill-white group-hover:scale-110 transition-transform" :viewBox="social.viewBox">
+                  class="w-5 h-5 fill-dark group-hover:fill-white transition-colors duration-300"
+                  :viewBox="social.viewBox">
                   <path :d="social.icon"></path>
                 </svg>
               </a>
@@ -95,89 +96,84 @@ const socials = computed(() => {
           </div>
         </div>
 
-        <!-- Navigation Columns -->
-        <div class="lg:col-span-4 grid grid-cols-1 sm:grid-cols-2 gap-12">
-          <!-- Links 1 -->
-          <div class="space-y-8">
-            <h3
-              class="text-white font-bold uppercase tracking-[0.2em] text-xs pb-4 border-b border-white/10 w-fit pr-8">
-              Liens Rapides</h3>
-            <nav class="flex flex-col gap-4">
-              <NuxtLink v-for="link in footerLinks" :key="link.path" :to="link.path"
-                class="text-white/40 hover:text-primary transition-all text-sm font-medium w-fit flex items-center group">
-                <span
-                  class="w-0 group-hover:w-4 h-px bg-primary mr-0 group-hover:mr-2 transition-all duration-300"></span>
-                {{ link.name }}
-              </NuxtLink>
-            </nav>
-          </div>
+        <!-- Links 1 -->
+        <div class="lg:col-span-2 space-y-8">
+          <h3 class="text-dark font-bold uppercase tracking-[0.2em] text-xs pb-4 border-b border-dark/10 w-fit pr-8">
+            Liens Rapides</h3>
+          <nav class="flex flex-col gap-4">
+            <NuxtLink v-for="link in footerLinks" :key="link.path" :to="link.path"
+              class="text-dark/60 hover:text-primary transition-all text-sm font-medium w-fit flex items-center group">
+              <span
+                class="w-0 group-hover:w-4 h-px bg-primary mr-0 group-hover:mr-2 transition-all duration-300"></span>
+              {{ link.name }}
+            </NuxtLink>
+          </nav>
+        </div>
 
-          <!-- Links 2 -->
-          <div class="space-y-8">
-            <h3
-              class="text-white font-bold uppercase tracking-[0.2em] text-xs pb-4 border-b border-white/10 w-fit pr-8">
-              Nos Expertises</h3>
-            <nav class="flex flex-col gap-3">
-              <NuxtLink to="/services"
-                class="text-white/40 hover:text-primary transition-all text-xs font-medium w-fit flex items-center group">
-                <span
-                  class="w-0 group-hover:w-4 h-px bg-primary mr-0 group-hover:mr-2 transition-all duration-300"></span>
-                HÔTESSES D'ACCUEIL
-              </NuxtLink>
-              <NuxtLink to="/services"
-                class="text-white/40 hover:text-primary transition-all text-xs font-medium w-fit flex items-center group">
-                <span
-                  class="w-0 group-hover:w-4 h-px bg-primary mr-0 group-hover:mr-2 transition-all duration-300"></span>
-                ÉVÉNEMENTIEL
-              </NuxtLink>
-              <NuxtLink to="/services"
-                class="text-white/40 hover:text-primary transition-all text-xs font-medium w-fit flex items-center group">
-                <span
-                  class="w-0 group-hover:w-4 h-px bg-primary mr-0 group-hover:mr-2 transition-all duration-300"></span>
-                ASSISTANTE AÉROPORTUAIRE
-              </NuxtLink>
-              <NuxtLink to="/services"
-                class="text-white/40 hover:text-primary transition-all text-xs font-medium w-fit flex items-center group">
-                <span
-                  class="w-0 group-hover:w-4 h-px bg-primary mr-0 group-hover:mr-2 transition-all duration-300"></span>
-                TRANSPORT & LOGISTIQUE
-              </NuxtLink>
-              <NuxtLink to="/services"
-                class="text-white/40 hover:text-primary transition-all text-xs font-medium w-fit flex items-center group">
-                <span
-                  class="w-0 group-hover:w-4 h-px bg-primary mr-0 group-hover:mr-2 transition-all duration-300"></span>
-                IMPORT - EXPORT
-              </NuxtLink>
-              <NuxtLink to="/services"
-                class="text-white/40 hover:text-primary transition-all text-xs font-medium w-fit flex items-center group">
-                <span
-                  class="w-0 group-hover:w-4 h-px bg-primary mr-0 group-hover:mr-2 transition-all duration-300"></span>
-                AGENCE DE VOYAGE
-              </NuxtLink>
-              <NuxtLink to="/services"
-                class="text-white/40 hover:text-primary transition-all text-xs font-medium w-fit flex items-center group">
-                <span
-                  class="w-0 group-hover:w-4 h-px bg-primary mr-0 group-hover:mr-2 transition-all duration-300"></span>
-                BILLETTERIE D'AVION
-              </NuxtLink>
-              <NuxtLink to="/services"
-                class="text-white/40 hover:text-primary transition-all text-xs font-medium w-fit flex items-center group">
-                <span
-                  class="w-0 group-hover:w-4 h-px bg-primary mr-0 group-hover:mr-2 transition-all duration-300"></span>
-                TOURISME
-              </NuxtLink>
-            </nav>
-          </div>
+        <!-- Links 2 (Nos Expertises) -->
+        <div class="lg:col-span-4 space-y-8 lg:ml-20">
+          <h3 class="text-dark font-bold uppercase tracking-[0.2em] text-xs pb-4 border-b border-dark/10 w-fit pr-12">
+            Nos Expertises</h3>
+          <nav class="flex flex-col gap-3">
+            <NuxtLink to="/services"
+              class="text-dark/60 hover:text-primary transition-all text-sm font-medium w-fit flex items-center group">
+              <span
+                class="w-0 group-hover:w-4 h-px bg-primary mr-0 group-hover:mr-2 transition-all duration-300"></span>
+              HÔTESSES D'ACCUEIL
+            </NuxtLink>
+            <NuxtLink to="/services"
+              class="text-dark/60 hover:text-primary transition-all text-sm font-medium w-fit flex items-center group">
+              <span
+                class="w-0 group-hover:w-4 h-px bg-primary mr-0 group-hover:mr-2 transition-all duration-300"></span>
+              ÉVÉNEMENTIEL
+            </NuxtLink>
+            <NuxtLink to="/services"
+              class="text-dark/60 hover:text-primary transition-all text-sm font-medium w-fit flex items-center group">
+              <span
+                class="w-0 group-hover:w-4 h-px bg-primary mr-0 group-hover:mr-2 transition-all duration-300"></span>
+              ASSISTANTE AÉROPORTUAIRE
+            </NuxtLink>
+            <NuxtLink to="/services"
+              class="text-dark/60 hover:text-primary transition-all text-sm font-medium w-fit flex items-center group">
+              <span
+                class="w-0 group-hover:w-4 h-px bg-primary mr-0 group-hover:mr-2 transition-all duration-300"></span>
+              TRANSPORT & LOGISTIQUE
+            </NuxtLink>
+            <NuxtLink to="/services"
+              class="text-dark/60 hover:text-primary transition-all text-sm font-medium w-fit flex items-center group">
+              <span
+                class="w-0 group-hover:w-4 h-px bg-primary mr-0 group-hover:mr-2 transition-all duration-300"></span>
+              IMPORT - EXPORT
+            </NuxtLink>
+            <NuxtLink to="/services"
+              class="text-dark/60 hover:text-primary transition-all text-sm font-medium w-fit flex items-center group">
+              <span
+                class="w-0 group-hover:w-4 h-px bg-primary mr-0 group-hover:mr-2 transition-all duration-300"></span>
+              AGENCE DE VOYAGE
+            </NuxtLink>
+            <NuxtLink to="/services"
+              class="text-dark/60 hover:text-primary transition-all text-sm font-medium w-fit flex items-center group">
+              <span
+                class="w-0 group-hover:w-4 h-px bg-primary mr-0 group-hover:mr-2 transition-all duration-300"></span>
+              BILLETTERIE D'AVION
+            </NuxtLink>
+            <NuxtLink to="/services"
+              class="text-dark/60 hover:text-primary transition-all text-sm font-medium w-fit flex items-center group">
+              <span
+                class="w-0 group-hover:w-4 h-px bg-primary mr-0 group-hover:mr-2 transition-all duration-300"></span>
+              TOURISME
+            </NuxtLink>
+          </nav>
         </div>
 
         <!-- Contact Section -->
-        <div class="lg:col-span-4 space-y-8">
-          <h3 class="text-white font-bold uppercase tracking-[0.2em] text-xs pb-4 border-b border-white/10 w-fit pr-8">
+        <div class="lg:col-span-3 space-y-8">
+          <h3 class="text-dark font-bold uppercase tracking-[0.2em] text-xs pb-4 border-b border-dark/10 w-fit pr-8">
             Contacts</h3>
           <ul class="space-y-6">
             <li v-if="contactStore.contact?.telephone1" class="flex items-center gap-4 group">
               <div
-                class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center shrink-0 border border-white/10 group-hover:border-primary/50 group-hover:bg-primary/5 transition-all duration-500">
+                class="w-10 h-10 bg-dark/5 rounded-full flex items-center justify-center shrink-0 border border-dark/10 group-hover:border-primary/50 group-hover:bg-primary/5 transition-all duration-500">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
@@ -185,13 +181,13 @@ const socials = computed(() => {
                 </svg>
               </div>
               <a :href="'tel:' + contactStore.contact.telephone1"
-                class="text-sm font-medium text-white/70 hover:text-white transition-colors">{{
+                class="text-sm font-medium text-dark/80 hover:text-primary transition-colors">{{
                   contactStore.contact.telephone1 }}</a>
             </li>
 
             <li v-if="contactStore.contact?.telephone2" class="flex items-center gap-4 group">
               <div
-                class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center shrink-0 border border-white/10 group-hover:border-primary/50 group-hover:bg-primary/5 transition-all duration-500">
+                class="w-10 h-10 bg-dark/5 rounded-full flex items-center justify-center shrink-0 border border-dark/10 group-hover:border-primary/50 group-hover:bg-primary/5 transition-all duration-500">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
@@ -199,13 +195,13 @@ const socials = computed(() => {
                 </svg>
               </div>
               <a :href="'tel:' + contactStore.contact.telephone2"
-                class="text-sm font-medium text-white/70 hover:text-white transition-colors">{{
+                class="text-sm font-medium text-dark/80 hover:text-primary transition-colors">{{
                   contactStore.contact.telephone2 }}</a>
             </li>
 
             <li v-if="contactStore.contact?.email" class="flex items-center gap-4 group">
               <div
-                class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center shrink-0 border border-white/10 group-hover:border-primary/50 group-hover:bg-primary/5 transition-all duration-500">
+                class="w-10 h-10 bg-dark/5 rounded-full flex items-center justify-center shrink-0 border border-dark/10 group-hover:border-primary/50 group-hover:bg-primary/5 transition-all duration-500">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
@@ -213,13 +209,13 @@ const socials = computed(() => {
                 </svg>
               </div>
               <a :href="'mailto:' + contactStore.contact.email"
-                class="text-sm font-medium text-white/70 hover:text-white transition-colors">{{
+                class="text-sm font-medium text-dark/80 hover:text-primary transition-colors">{{
                   contactStore.contact.email }}</a>
             </li>
 
             <li v-if="contactStore.contact?.adresse" class="flex items-start gap-4 group">
               <div
-                class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center shrink-0 border border-white/10 group-hover:border-primary/50 group-hover:bg-primary/5 transition-all duration-500 mt-1">
+                class="w-10 h-10 bg-dark/5 rounded-full flex items-center justify-center shrink-0 border border-dark/10 group-hover:border-primary/50 group-hover:bg-primary/5 transition-all duration-500 mt-1">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
@@ -228,16 +224,16 @@ const socials = computed(() => {
                     d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
               </div>
-              <p class="text-sm font-medium text-white/70 leading-relaxed pt-2">{{ contactStore.contact.adresse }}</p>
+              <p class="text-sm font-medium text-dark/80 leading-relaxed pt-2">{{ contactStore.contact.adresse }}</p>
             </li>
           </ul>
         </div>
       </div>
 
       <!-- Copyright Section -->
-      <div class="pt-8 border-t border-white/5 text-center px-4">
-        <p class="text-xs text-white/40 font-normal tracking-wide">
-          &copy; {{ currentYear }} <span class="text-white/60">Lumen Agency</span>. Tous droits réservés. |
+      <div class="border-t border-dark/5 text-center px-4">
+        <p class="text-sm text-dark/60 font-normal tracking-wide">
+          &copy; {{ currentYear }} <span class="text-dark/80">Lumen Agency</span>. Tous droits réservés. |
           Développé par
           <a href="https://neostart.tech" target="_blank" class="text-primary hover:underline ml-1">
             Neo Start Technology

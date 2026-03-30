@@ -192,20 +192,20 @@ onMounted(() => {
 
                 <div class="w-full lg:w-1/2 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
                     <div v-for="(reason, index) in reasons" :key="reason.title"
-                        class="p-8 bg-white/5 border border-white/5 rounded-3xl hover:bg-white/10 transition-colors duration-300 group reveal-on-scroll"
+                        class="p-8 bg-white/5 border border-white/5 rounded-2xl hover:bg-white/10 hover:border-primary hover:-translate-y-4 hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500 group reveal-on-scroll"
                         :class="`delay-${(index % 2) * 100 + 200}`">
                         <div
-                            class="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center mb-6">
+                            class="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center mb-6 transition-all duration-500 group-hover:bg-primary group-hover:text-white group-hover:scale-110 group-hover:rotate-6">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     :d="reason.icon" />
                             </svg>
                         </div>
-                        <h4 class="text-sm md:text-base font-medium text-white uppercase tracking-wide mb-3">
+                        <h4 class="text-sm md:text-base font-medium text-white uppercase tracking-wide mb-3 group-hover:text-primary transition-colors">
                             {{ reason.title }}
                         </h4>
-                        <p class="text-white/60 text-sm leading-relaxed font-light">
+                        <p class="text-white/60 text-sm leading-relaxed font-light group-hover:text-white/90 transition-colors">
                             {{ reason.desc }}
                         </p>
                     </div>
