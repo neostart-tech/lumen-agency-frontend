@@ -83,7 +83,7 @@ const formatDate = (dateStr) => {
 
 const calculateReadingTime = (content) => {
     if (!content) return 1;
-    const wordsPerMinute = 200;
+    const wordsPerMinute = 120;
     const plainText = content.replace(/<[^>]*>/g, '');
     const noOfWords = plainText.trim().split(/\s+/).length;
     const minutes = Math.ceil(noOfWords / wordsPerMinute);

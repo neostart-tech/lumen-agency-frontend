@@ -1,40 +1,37 @@
 <template>
   <div class="login-page overflow-hidden selection:bg-primary selection:text-white">
-    <!-- Animated Cinematic Background -->
-    <div class="absolute inset-0 z-0 bg-[#050510]">
-      <!-- Animated Orbs -->
-      <div class="absolute top-1/4 -left-20 w-96 h-96 bg-primary/20 rounded-full blur-[120px] animate-pulse"></div>
-      <div class="absolute bottom-1/4 -right-20 w-[30rem] h-[30rem] bg-accent/10 rounded-full blur-[150px] animate-pulse delay-700"></div>
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50rem] h-[50rem] bg-primary/5 rounded-full blur-[180px] animate-float"></div>
+    <!-- Animated Soft Background -->
+    <div class="absolute inset-0 z-0 bg-[#f8fafc]">
+      <!-- Animated Soft Orbs -->
+      <div class="absolute top-1/4 -left-20 w-96 h-96 bg-primary/10 rounded-full blur-[120px] animate-pulse"></div>
+      <div class="absolute bottom-1/4 -right-20 w-[30rem] h-[30rem] bg-accent/5 rounded-full blur-[150px] animate-pulse delay-700"></div>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50rem] h-[50rem] bg-secondary/5 rounded-full blur-[180px] animate-float"></div>
       
-      <!-- Perspective Grid -->
+      <!-- Subtle Perspective Grid -->
       <div class="grid-overlay"></div>
-      
-      <!-- Scanline Effect -->
-      <div class="scanlines"></div>
     </div>
 
     <div class="login-container">
       <div class="login-card-wrapper">
         <!-- Decoration Elements -->
-        <div class="absolute -top-12 -left-12 w-24 h-24 border-t-2 border-l-2 border-primary/30 rounded-tl-3xl"></div>
-        <div class="absolute -bottom-12 -right-12 w-24 h-24 border-b-2 border-r-2 border-primary/30 rounded-br-3xl"></div>
+        <div class="absolute -top-12 -left-12 w-24 h-24 border-t-2 border-l-2 border-primary/20 rounded-tl-3xl"></div>
+        <div class="absolute -bottom-12 -right-12 w-24 h-24 border-b-2 border-r-2 border-primary/20 rounded-br-3xl"></div>
 
-        <div class="login-card backdrop-blur-2xl bg-white/[0.03] border border-white/10 shadow-[0_40px_100px_rgba(0,0,0,0.8)]">
-          <div class="login-card__header">
-            <div class="w-16 h-16 rounded-2xl bg-white/10 p-3 mx-auto mb-6 backdrop-blur-md border border-white/20">
-              <img src="/images/logo-2-mixte.png" alt="Logo Lumen Agency" class="w-full h-full object-contain" />
+        <div class="login-card bg-white border border-gray-100 shadow-[0_40px_100px_rgba(0,0,0,0.08)]">
+          <div class="login-card__header text-center">
+            <div class="w-20 h-20 rounded-2xl bg-gray-50 p-4 mx-auto mb-6 border border-gray-100 shadow-sm transition-transform hover:scale-105 duration-500">
+              <img src="/images/logo-fond-blanc.png" alt="Logo Lumen Agency" class="w-full h-full object-contain" />
             </div>
-            <h1 class="text-3xl font-bold text-white uppercase tracking-[0.2em] mb-2 drop-shadow-lg">Dashboard</h1>
-            <p class="text-xs text-white/40 uppercase tracking-widest">Accès Sécurisé • Administration</p>
+            <h1 class="text-2xl font-extrabold text-[#0B0A07] uppercase tracking-[0.2em] mb-2">Dashboard</h1>
+            <p class="text-[10px] text-gray-400 uppercase tracking-[0.3em] font-medium">Administration • Accès Sécurisé</p>
           </div>
 
           <form @submit.prevent="handleLogin" class="login-form">
             <div class="form-group">
-              <label for="email" class="text-[10px] uppercase tracking-[0.2em] text-white/50 font-bold">Identifiant</label>
+              <label for="email" class="text-[11px] uppercase tracking-[0.15em] text-gray-500 font-bold ml-2">Identifiant</label>
               <div class="input-wrapper group">
                 <input type="email" id="email" v-model="credentials.email" 
-                  class="bg-white/5 border-white/10 text-white placeholder:text-white/20 focus:bg-white/10 focus:border-primary/50 transition-all duration-300"
+                  class="bg-gray-50 border-gray-200 text-[#0B0A07] placeholder:text-gray-300 focus:bg-white focus:border-primary/50 focus:ring-4 focus:ring-primary/5 transition-all duration-300"
                   placeholder="nom@lumen-agency.com" required />
                 <svg xmlns="http://www.w3.org/2000/svg" class="input-icon group-focus-within:text-primary transition-colors" width="18" height="18" viewBox="0 0 24 24"
                   fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -45,10 +42,10 @@
             </div>
 
             <div class="form-group">
-              <label for="password" class="text-[10px] uppercase tracking-[0.2em] text-white/50 font-bold">Code d'accès</label>
+              <label for="password" class="text-[11px] uppercase tracking-[0.15em] text-gray-500 font-bold ml-2">Code d'accès</label>
               <div class="input-wrapper group">
                 <input :type="showPassword ? 'text' : 'password'" id="password" v-model="credentials.password"
-                  class="bg-white/5 border-white/10 text-white placeholder:text-white/20 focus:bg-white/10 focus:border-primary/50 transition-all duration-300"
+                  class="bg-gray-50 border-gray-200 text-[#0B0A07] placeholder:text-gray-300 focus:bg-white focus:border-primary/50 focus:ring-4 focus:ring-primary/5 transition-all duration-300"
                   placeholder="••••••••" required />
                 <button type="button" class="btn-toggle-pass" @click="showPassword = !showPassword">
                   <svg v-if="!showPassword" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
@@ -68,7 +65,7 @@
             </div>
 
             <button type="submit" class="btn-login group overflow-hidden relative" :disabled="isLoading">
-              <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+              <div class="absolute inset-0 bg-black/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
               <span class="relative z-10 flex items-center justify-center gap-3 font-bold uppercase tracking-[0.2em] text-xs">
                 {{ isLoading ? 'Initialisation...' : 'Authentification' }}
                 <svg v-if="!isLoading" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 translate-x-0 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -79,7 +76,7 @@
           </form>
 
           <Transition name="fade">
-            <div v-if="errorMsg" class="mt-6 p-4 bg-red-500/10 border border-red-500/20 rounded-xl">
+            <div v-if="errorMsg" class="mt-8 p-4 bg-red-50 border border-red-100 rounded-xl">
               <p class="text-[10px] text-red-500 font-bold uppercase tracking-widest text-center">{{ errorMsg }}</p>
             </div>
           </Transition>
@@ -87,7 +84,7 @@
       </div>
 
       <div class="mt-12 text-center reveal-delay">
-        <NuxtLink to="/" class="group inline-flex items-center gap-2 text-[10px] text-white/30 uppercase tracking-[0.3em] hover:text-primary transition-colors">
+        <NuxtLink to="/" class="group inline-flex items-center gap-2 text-[10px] text-gray-400 uppercase tracking-[0.3em] hover:text-primary transition-colors">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
           </svg>
@@ -158,8 +155,8 @@ useHead({
   justify-content: center;
   padding: 2rem;
   font-family: 'Outfit', sans-serif;
-  color: white;
-  background: #050510;
+  color: #0B0A07;
+  background: #f8fafc;
   position: relative;
 }
 
@@ -167,29 +164,17 @@ useHead({
   position: absolute;
   inset: 0;
   background-image: 
-    linear-gradient(rgba(242, 144, 4, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(242, 144, 4, 0.05) 1px, transparent 1px);
+    linear-gradient(rgba(242, 144, 4, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(242, 144, 4, 0.03) 1px, transparent 1px);
   background-size: 50px 50px;
   mask-image: radial-gradient(circle at 50% 50%, black, transparent 80%);
-}
-
-.scanlines {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    transparent 50%,
-    rgba(0, 0, 0, 0.2) 50%
-  );
-  background-size: 100% 4px;
-  pointer-events: none;
-  opacity: 0.1;
 }
 
 .login-container {
   width: 100%;
   max-width: 480px;
   perspective: 1000px;
+  z-index: 10;
 }
 
 .login-card-wrapper {
@@ -224,7 +209,7 @@ useHead({
   left: 1.25rem;
   top: 50%;
   transform: translateY(-50%);
-  color: rgba(255, 255, 255, 0.2);
+  color: rgba(0, 0, 0, 0.2);
 }
 
 input {
@@ -233,6 +218,7 @@ input {
   border-radius: 20px;
   font-size: 0.9rem;
   outline: none;
+  border: 1px solid;
 }
 
 .btn-toggle-pass {
@@ -242,7 +228,7 @@ input {
   transform: translateY(-50%);
   background: none;
   border: none;
-  color: rgba(255, 255, 255, 0.2);
+  color: rgba(0, 0, 0, 0.2);
   cursor: pointer;
 }
 
@@ -251,13 +237,20 @@ input {
   color: white;
   padding: 1.25rem;
   border-radius: 20px;
-  box-shadow: 0 20px 40px -10px rgba(var(--color-primary-rgb), 0.4);
+  box-shadow: 0 20px 40px -10px rgba(var(--color-primary-rgb), 0.3);
   transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  border: none;
+  cursor: pointer;
 }
 
 .btn-login:hover:not(:disabled) {
-  box-shadow: 0 25px 50px -12px rgba(var(--color-primary-rgb), 0.6);
+  box-shadow: 0 25px 50px -12px rgba(var(--color-primary-rgb), 0.5);
   transform: translateY(-3px) scale(1.02);
+}
+
+.btn-login:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 @keyframes card-appear {
@@ -275,10 +268,11 @@ input {
 }
 
 .fade-enter-active, .fade-leave-active {
-  transition: all 0.5s ease;
+  transition: all 0.4s ease;
 }
 .fade-enter-from, .fade-leave-to {
   opacity: 0;
   transform: translateY(-10px);
 }
 </style>
+
