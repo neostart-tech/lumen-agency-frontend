@@ -75,7 +75,7 @@ const socials = computed(() => {
             <img src="/images/logo-fond-blanc.png" alt="Lumen Agency Logo"
               class="h-14 w-auto object-contain transition-transform duration-500 group-hover:scale-105" />
           </NuxtLink>
-          <p class="text-dark/60 text-base leading-relaxed max-w-sm font-light">
+          <p class="text-dark max-w-sm text-justify">
             L'expert du voyage, de l'événementiel et de l'assistance aéroportuaire. Une excellence au service de votre
             mobilité et de vos projets d'exception.
           </p>
@@ -102,7 +102,7 @@ const socials = computed(() => {
             Liens Rapides</h3>
           <nav class="flex flex-col gap-4">
             <NuxtLink v-for="link in footerLinks" :key="link.path" :to="link.path"
-              class="text-dark/60 hover:text-primary transition-all text-sm font-medium w-fit flex items-center group">
+              class="text-dark/90 hover:text-primary transition-all text-sm font-medium w-fit flex items-center group">
               <span
                 class="w-0 group-hover:w-4 h-px bg-primary mr-0 group-hover:mr-2 transition-all duration-300"></span>
               {{ link.name }}
@@ -116,49 +116,49 @@ const socials = computed(() => {
             Nos Expertises</h3>
           <nav class="flex flex-col gap-3">
             <NuxtLink to="/services"
-              class="text-dark/60 hover:text-primary transition-all text-sm font-medium w-fit flex items-center group">
+              class="text-dark/90 hover:text-primary transition-all text-sm font-medium w-fit flex items-center group">
               <span
                 class="w-0 group-hover:w-4 h-px bg-primary mr-0 group-hover:mr-2 transition-all duration-300"></span>
               HÔTESSES D'ACCUEIL
             </NuxtLink>
             <NuxtLink to="/services"
-              class="text-dark/60 hover:text-primary transition-all text-sm font-medium w-fit flex items-center group">
+              class="text-dark/90 hover:text-primary transition-all text-sm font-medium w-fit flex items-center group">
               <span
                 class="w-0 group-hover:w-4 h-px bg-primary mr-0 group-hover:mr-2 transition-all duration-300"></span>
               ÉVÉNEMENTIEL
             </NuxtLink>
             <NuxtLink to="/services"
-              class="text-dark/60 hover:text-primary transition-all text-sm font-medium w-fit flex items-center group">
+              class="text-dark/90 hover:text-primary transition-all text-sm font-medium w-fit flex items-center group">
               <span
                 class="w-0 group-hover:w-4 h-px bg-primary mr-0 group-hover:mr-2 transition-all duration-300"></span>
               ASSISTANTE AÉROPORTUAIRE
             </NuxtLink>
             <NuxtLink to="/services"
-              class="text-dark/60 hover:text-primary transition-all text-sm font-medium w-fit flex items-center group">
+              class="text-dark/90 hover:text-primary transition-all text-sm font-medium w-fit flex items-center group">
               <span
                 class="w-0 group-hover:w-4 h-px bg-primary mr-0 group-hover:mr-2 transition-all duration-300"></span>
               TRANSPORT & LOGISTIQUE
             </NuxtLink>
             <NuxtLink to="/services"
-              class="text-dark/60 hover:text-primary transition-all text-sm font-medium w-fit flex items-center group">
+              class="text-dark/90 hover:text-primary transition-all text-sm font-medium w-fit flex items-center group">
               <span
                 class="w-0 group-hover:w-4 h-px bg-primary mr-0 group-hover:mr-2 transition-all duration-300"></span>
               IMPORT - EXPORT
             </NuxtLink>
             <NuxtLink to="/services"
-              class="text-dark/60 hover:text-primary transition-all text-sm font-medium w-fit flex items-center group">
+              class="text-dark/90 hover:text-primary transition-all text-sm font-medium w-fit flex items-center group">
               <span
                 class="w-0 group-hover:w-4 h-px bg-primary mr-0 group-hover:mr-2 transition-all duration-300"></span>
               AGENCE DE VOYAGE
             </NuxtLink>
             <NuxtLink to="/services"
-              class="text-dark/60 hover:text-primary transition-all text-sm font-medium w-fit flex items-center group">
+              class="text-dark/90 hover:text-primary transition-all text-sm font-medium w-fit flex items-center group">
               <span
                 class="w-0 group-hover:w-4 h-px bg-primary mr-0 group-hover:mr-2 transition-all duration-300"></span>
               BILLETTERIE D'AVION
             </NuxtLink>
             <NuxtLink to="/services"
-              class="text-dark/60 hover:text-primary transition-all text-sm font-medium w-fit flex items-center group">
+              class="text-dark/90 hover:text-primary transition-all text-sm font-medium w-fit flex items-center group">
               <span
                 class="w-0 group-hover:w-4 h-px bg-primary mr-0 group-hover:mr-2 transition-all duration-300"></span>
               TOURISME
@@ -181,7 +181,7 @@ const socials = computed(() => {
                 </svg>
               </div>
               <a :href="'tel:' + contactStore.contact.telephone1"
-                class="text-sm font-medium text-dark/80 hover:text-primary transition-colors">{{
+                class="text-sm font-medium text-dark/90 hover:text-primary transition-colors">{{
                   contactStore.contact.telephone1 }}</a>
             </li>
 
@@ -195,7 +195,7 @@ const socials = computed(() => {
                 </svg>
               </div>
               <a :href="'tel:' + contactStore.contact.telephone2"
-                class="text-sm font-medium text-dark/80 hover:text-primary transition-colors">{{
+                class="text-sm font-medium text-dark/90 hover:text-primary transition-colors">{{
                   contactStore.contact.telephone2 }}</a>
             </li>
 
@@ -209,7 +209,7 @@ const socials = computed(() => {
                 </svg>
               </div>
               <a :href="'mailto:' + contactStore.contact.email"
-                class="text-sm font-medium text-dark/80 hover:text-primary transition-colors">{{
+                class="text-sm font-medium text-dark/90 hover:text-primary transition-colors">{{
                   contactStore.contact.email }}</a>
             </li>
 
@@ -224,7 +224,7 @@ const socials = computed(() => {
                     d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
               </div>
-              <p class="text-sm font-medium text-dark/80 leading-relaxed pt-2">{{ contactStore.contact.adresse }}</p>
+              <p class="text-sm font-medium text-dark/90 leading-relaxed pt-2">{{ contactStore.contact.adresse }}</p>
             </li>
           </ul>
         </div>
@@ -232,7 +232,7 @@ const socials = computed(() => {
 
       <!-- Copyright Section -->
       <div class="border-t border-dark/5 text-center px-4">
-        <p class="text-sm text-dark/60 font-normal tracking-wide">
+        <p class="text-sm text-dark/90 font-normal tracking-wide">
           &copy; {{ currentYear }} <span class="text-dark/80">Lumen Agency</span>. Tous droits réservés. |
           Développé par
           <a href="https://neostart.tech" target="_blank" class="text-primary hover:underline ml-1">

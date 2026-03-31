@@ -47,10 +47,10 @@ onMounted(() => {
                 <div class="absolute inset-0 bg-gradient-to-r from-dark/80 via-dark/40 to-transparent"></div>
             </div>
 
-            <div class="container mx-auto px-4 md:px-8 relative z-10">
-                <div class="max-w-3xl space-y-8 animate-fade-in">
+            <div class="container mx-auto px-4 md:px-8 relative z-10 pt-20">
+                <div class="max-w-5xl space-y-8 animate-fade-in">
                     <div
-                        class="inline-block py-1 px-4 bg-primary/20 border-l-4 border-primary text-primary text-xs font-bold uppercase tracking-widest backdrop-blur-sm">
+                        class="block w-fit py-1 px-4 bg-primary/20 border-l-4 border-primary text-primary text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] backdrop-blur-sm reveal-on-scroll">
                         Expertise & Excellence
                     </div>
 
@@ -62,7 +62,7 @@ onMounted(() => {
                         </div>
 
                         <h1
-                            class="relative z-10 text-3xl md:text-5xl font-semibold text-white uppercase leading-[1.2] tracking-normal flex flex-col">
+                            class="relative z-10 text-2xl sm:text-3xl md:text-5xl font-semibold text-white uppercase tracking-normal leading-[1.2] flex flex-col">
                             <span class="block overflow-hidden py-1">
                                 <span class="inline-block opacity-0"
                                     :class="{ 'animate-title-reveal delay-100': heroVisible }">Votre partenaire
@@ -96,7 +96,7 @@ onMounted(() => {
                         </h1>
                     </div>
 
-                    <p class="text-lg md:text-xl text-white max-w-2xl font-light leading-relaxed">
+                    <p class="text-xl md:text-2xl text-white max-w-3xl font-light leading-relaxed">
                         Nous accompagnons particuliers et entreprises dans leurs projets de mobilité et d'organisation
                         globale pour un succès garanti et sans stress.
                     </p>
@@ -177,7 +177,7 @@ onMounted(() => {
                     <h2 class="text-xs font-medium text-primary uppercase tracking-[0.2em]">Excellence</h2>
                     <h3 class="text-2xl md:text-3xl font-semibold text-white uppercase tracking-wide">Pourquoi nous
                         choisir ?</h3>
-                    <p class="text-white/70 text-base leading-relaxed max-w-xl font-light">
+                    <p class="text-white/90 text-base leading-relaxed max-w-xl font-light">
                         Chez Lumen Agency, nous ne nous contentons pas de remplir une mission. Nous créons des relations
                         durables basées sur la confiance, l'efficacité et la perfection opérationnelle.
                     </p>
@@ -205,7 +205,7 @@ onMounted(() => {
                         <h4 class="text-sm md:text-base font-medium text-white uppercase tracking-wide mb-3 group-hover:text-primary transition-colors">
                             {{ reason.title }}
                         </h4>
-                        <p class="text-white/60 text-sm leading-relaxed font-light group-hover:text-white/90 transition-colors">
+                        <p class="text-white/90 text-sm leading-relaxed font-light group-hover:text-white transition-colors">
                             {{ reason.desc }}
                         </p>
                     </div>

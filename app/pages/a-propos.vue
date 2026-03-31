@@ -27,7 +27,7 @@ useHead({
 <template>
   <div>
     <!-- Hero Section with Background -->
-    <section ref="heroSection" class="relative py-20 md:py-32 bg-dark overflow-hidden flex items-center min-h-[400px]">
+    <section ref="heroSection" class="relative h-[90vh] bg-dark overflow-hidden flex items-center min-h-[600px]">
       <!-- Background Image -->
       <div class="absolute inset-0 z-0 text-white">
         <img src="/images/a-propos-bg.jpg" alt="Lumen Agency Excellence"
@@ -35,8 +35,8 @@ useHead({
         <div class="absolute inset-0 bg-gradient-to-r from-dark/90 via-dark/50 to-transparent"></div>
       </div>
 
-      <div class="container mx-auto px-4 md:px-8 relative z-10">
-        <div class="max-w-4xl w-full space-y-8">
+      <div class="container mx-auto px-4 md:px-8 relative z-10 pt-20">
+        <div class="max-w-5xl w-full space-y-8">
           <div
             class="block w-fit py-1 px-4 bg-primary/20 border-l-4 border-primary text-primary text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] backdrop-blur-sm reveal-on-scroll">
             Notre Histoire
@@ -66,7 +66,7 @@ useHead({
             </h1>
           </div>
 
-          <p class="text-white/60 text-base md:text-xl font-light leading-relaxed max-w-2xl reveal-on-scroll delay-400">
+          <p class="text-xl md:text-2xl text-white max-w-3xl font-light leading-relaxed">
             Une expertise unique dédiée à la réussite de vos voyages et de vos événements, avec une rigueur absolue et
             un souci constant du détail.
           </p>
@@ -75,7 +75,7 @@ useHead({
     </section>
 
     <!-- Qu'est-ce que Lumen Agency -->
-    <section class="py-24 md:py-40 bg-light relative overflow-hidden">
+    <section class="pt-24 md:pt-40 pb-12 md:pb-20 bg-light relative overflow-hidden">
       <!-- Decorative background text -->
       <div
         class="absolute top-20 -left-20 text-[15rem] font-bold text-dark/[0.02] select-none pointer-events-none hidden lg:block uppercase">
@@ -158,7 +158,7 @@ useHead({
     </section>
 
     <!-- Vision & Mission with Grid Design -->
-    <section class="py-24 md:py-40 bg-white relative">
+    <section class="pt-12 md:pt-20 pb-24 md:pb-40 bg-white relative">
       <div class="container mx-auto px-4">
         <div
           class="grid grid-cols-1 lg:grid-cols-2 gap-px bg-dark/5 border border-dark/5 rounded-2xl overflow-hidden shadow-sm">

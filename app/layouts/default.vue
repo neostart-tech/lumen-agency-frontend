@@ -7,12 +7,25 @@
         :style="{ width: `${scrollProgress}%` }"></div>
     </div>
 
+    <!-- Custom Cursor Trailer -->
+    <div 
+      v-if="!isTouchDevice"
+      class="fixed w-3 h-3 bg-primary rounded-full pointer-events-none z-[9999] shadow-[0_0_15px_rgba(242,144,4,0.5)] transition-all duration-300 ease-out"
+      :style="{ 
+        left: `${cursorPos.x}px`, 
+        top: `${cursorPos.y}px`,
+        transform: `translate(-50%, -50%) scale(${isHovering ? 2.5 : 1})`,
+        opacity: isCursorVisible ? (isHovering ? 0.6 : 1) : 0,
+        border: isHovering ? '1px solid rgba(255,255,255,0.4)' : 'none'
+      }"
+    ></div>
+
     <!-- Header component (Fixed) -->
     <Header />
 
     <!-- Main Content Area -->
     <!-- We add pt-20 (80px) to compensate for the fixed header height -->
-    <main class="flex-grow pt-20">
+    <main class="flex-grow">
       <!-- Page content slot -->
       <slot />
     </main>
@@ -65,6 +78,36 @@
 const isScrolled = ref(false);
 const scrollProgress = ref(0);
 
+// Custom Cursor State
+const mousePos = reactive({ x: -100, y: -100 });
+const cursorPos = reactive({ x: -100, y: -100 });
+const isCursorVisible = ref(false);
+const isHovering = ref(false);
+const isTouchDevice = ref(false);
+let animationFrameId = null;
+
+const updateCursor = () => {
+    // Smoothing factor (closer to 1 = faster, closer to 0 = more delay)
+    const smoothing = 0.15;
+    cursorPos.x += (mousePos.x - cursorPos.x) * smoothing;
+    cursorPos.y += (mousePos.y - cursorPos.y) * smoothing;
+    
+    animationFrameId = requestAnimationFrame(updateCursor);
+};
+
+const handleMouseMove = (e) => {
+    mousePos.x = e.clientX;
+    mousePos.y = e.clientY;
+    if (!isCursorVisible.value) isCursorVisible.value = true;
+    
+    // Check if hovering over interactive elements
+    const target = e.target;
+    if (target instanceof HTMLElement) {
+        const interactive = target.closest('a, button, input, select, textarea, [role="button"], .cursor-pointer');
+        isHovering.value = !!interactive;
+    }
+};
+
 const handleScroll = () => {
   isScrolled.value = window.scrollY > 400;
 
@@ -112,6 +155,19 @@ const initRevealObserver = () => {
 
 onMounted(() => {
   window.addEventListener('scroll', handleScroll);
+  
+  // Detect touch device
+  isTouchDevice.value = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+  
+  if (!isTouchDevice.value) {
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseenter', () => isCursorVisible.value = true);
+    window.addEventListener('mouseleave', () => isCursorVisible.value = false);
+    
+    // Start animation loop
+    requestAnimationFrame(updateCursor);
+  }
+  
   initRevealObserver();
 });
 
@@ -125,6 +181,10 @@ watch(() => route.path, () => {
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll);
+  if (!isTouchDevice.value) {
+    window.removeEventListener('mousemove', handleMouseMove);
+    if (animationFrameId) cancelAnimationFrame(animationFrameId);
+  }
   if (revealObserver) revealObserver.disconnect();
 });
 </script>

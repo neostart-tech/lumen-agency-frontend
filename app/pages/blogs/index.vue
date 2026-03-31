@@ -180,7 +180,7 @@ watch(activeCategory, () => {
             </h1>
           </div>
 
-          <p class="text-white/60 text-lg md:text-xl font-light leading-relaxed max-w-2xl reveal-on-scroll delay-400">
+          <p class="text-xl md:text-2xl text-white max-w-3xl font-light leading-relaxed">
             Plongez au cœur de l'expertise Lumen Agency. Partages d'expériences, tendances du marché et conseils
             exclusifs.
           </p>

@@ -95,7 +95,7 @@ useHead({
             </h1>
           </div>
 
-          <p class="text-white/60 text-lg md:text-xl font-light leading-relaxed max-w-2xl reveal-on-scroll delay-400">
+          <p class="text-xl md:text-2xl text-white max-w-3xl font-light leading-relaxed">
             Lumen Agency déploie un écosystème de services haut de gamme conçus pour simplifier votre quotidien et
             sublimer vos projets les plus audacieux.
           </p>

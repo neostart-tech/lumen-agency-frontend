@@ -175,7 +175,7 @@ const submitForm = async () => {
             </h1>
           </div>
 
-          <p class="text-white/60 text-lg md:text-xl font-light leading-relaxed max-w-2xl reveal-on-scroll delay-400">
+          <p class="text-xl md:text-2xl text-white max-w-3xl font-light leading-relaxed">
             Une question, une demande de devis ou un besoin d'assistance ? Notre équipe est à votre entière disposition.
           </p>
         </div>

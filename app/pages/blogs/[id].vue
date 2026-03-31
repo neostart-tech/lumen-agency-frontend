@@ -140,7 +140,7 @@ useHead({
 
             <!-- Hero Section -->
             <section ref="heroSection"
-                class="relative py-20 md:py-32 bg-dark overflow-hidden flex items-center min-h-[400px] mb-20">
+                class="relative h-[80vh] bg-dark overflow-hidden flex items-center min-h-[500px] mb-20 pt-20">
                 <!-- Background Image -->
                 <div class="absolute inset-0 z-0 opacity-60 cursor-zoom-in" @click="openLightbox(getCoverImage(blog))">
                     <img :src="getCoverImage(blog)" :alt="blog.titre" class="w-full h-full object-cover" />
