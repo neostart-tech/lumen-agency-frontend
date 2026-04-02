@@ -30,7 +30,7 @@ onUnmounted(() => {
     class="fixed top-0 left-0 w-full z-50 transition-all duration-500 ease-in-out"
     :class="[
       isScrolled || isMenuOpen
-        ? 'bg-light/95 backdrop-blur-md border-b border-dark/5 py-4 shadow-lg' 
+        ? 'bg-white border-b border-dark/5 py-4 shadow-lg' 
         : 'bg-transparent border-b border-transparent py-6'
     ]">
     <div class="container mx-auto px-4 md:px-8">

@@ -1,114 +1,140 @@
 <template>
-  <div class="login-page overflow-hidden selection:bg-primary selection:text-white">
-    <!-- Animated Soft Background -->
-    <div class="absolute inset-0 z-0 bg-[#f8fafc]">
-      <!-- Animated Soft Orbs -->
-      <div class="absolute top-1/4 -left-20 w-96 h-96 bg-primary/10 rounded-full blur-[120px] animate-pulse"></div>
-      <div class="absolute bottom-1/4 -right-20 w-[30rem] h-[30rem] bg-accent/5 rounded-full blur-[150px] animate-pulse delay-700"></div>
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50rem] h-[50rem] bg-secondary/5 rounded-full blur-[180px] animate-float"></div>
-      
-      <!-- Subtle Perspective Grid -->
-      <div class="grid-overlay"></div>
+  <div class="min-h-screen relative flex items-center justify-center px-4 bg-[#f8f9fa] py-6 md:py-8 selection:bg-primary selection:text-white">
+    <!-- Background subtle pattern -->
+    <div class="absolute inset-0 z-0 opacity-10 pointer-events-none">
+      <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent"></div>
+      <div class="w-full h-full" style="background-image: radial-gradient(var(--color-primary) 0.5px, transparent 0.5px); background-size: 24px 24px;"></div>
     </div>
 
-    <div class="login-container">
-      <div class="login-card-wrapper">
-        <!-- Decoration Elements -->
-        <div class="absolute -top-12 -left-12 w-24 h-24 border-t-2 border-l-2 border-primary/20 rounded-tl-3xl"></div>
-        <div class="absolute -bottom-12 -right-12 w-24 h-24 border-b-2 border-r-2 border-primary/20 rounded-br-3xl"></div>
-
-        <div class="login-card bg-white border border-gray-100 shadow-[0_40px_100px_rgba(0,0,0,0.08)]">
-          <div class="login-card__header text-center">
-            <div class="w-20 h-20 rounded-2xl bg-gray-50 p-4 mx-auto mb-6 border border-gray-100 shadow-sm transition-transform hover:scale-105 duration-500">
-              <img src="/images/logo-fond-blanc.png" alt="Logo Lumen Agency" class="w-full h-full object-contain" />
-            </div>
-            <h1 class="text-2xl font-extrabold text-[#0B0A07] uppercase tracking-[0.2em] mb-2">Dashboard</h1>
-            <p class="text-[10px] text-gray-400 uppercase tracking-[0.3em] font-medium">Administration • Accès Sécurisé</p>
+    <!-- Login Card -->
+    <div class="relative z-10 w-full max-w-4xl transition-all duration-700 animate-in fade-in slide-in-from-bottom-8">
+      <div
+        class="bg-white shadow-[0_20px_60px_rgba(0,0,0,0.08)] overflow-hidden border border-gray-100 flex flex-col md:flex-row min-h-[540px] rounded-3xl">
+        
+        <!-- Côté Gauche: Branding & Image (Desktop only) -->
+        <div class="hidden md:flex w-2/5 bg-[#0B0A07] relative overflow-hidden flex-col justify-between p-12 text-white">
+          <!-- Background Decoration -->
+          <div class="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full blur-3xl -mr-32 -mt-10 border border-primary/10"></div>
+          <div class="absolute bottom-0 left-0 w-48 h-48 bg-primary/10 rounded-full blur-2xl -ml-24 -mb-24"></div>
+          
+          <div class="relative z-10 transition-transform hover:scale-105 duration-500">
+            <NuxtLink to="/">
+              <img src="/images/logo-1-blanc.png" class="h-14 w-auto" alt="Logo Lumen Agency" />
+            </NuxtLink>
           </div>
 
-          <form @submit.prevent="handleLogin" class="login-form">
-            <div class="form-group">
-              <label for="email" class="text-[11px] uppercase tracking-[0.15em] text-gray-500 font-bold ml-2">Identifiant</label>
-              <div class="input-wrapper group">
-                <input type="email" id="email" v-model="credentials.email" 
-                  class="bg-gray-50 border-gray-200 text-[#0B0A07] placeholder:text-gray-300 focus:bg-white focus:border-primary/50 focus:ring-4 focus:ring-primary/5 transition-all duration-300"
-                  placeholder="nom@lumen-agency.com" required />
-                <svg xmlns="http://www.w3.org/2000/svg" class="input-icon group-focus-within:text-primary transition-colors" width="18" height="18" viewBox="0 0 24 24"
-                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                  <polyline points="22,6 12,13 2,6"></polyline>
-                </svg>
+          <div class="relative z-10 space-y-6">
+            <h2 class="text-4xl font-extrabold leading-tight tracking-tight uppercase">
+              Dashboard <span class="text-primary">Admin</span>
+            </h2>
+            <p class="text-white/60 text-sm leading-relaxed font-light tracking-wide">
+              Gérez votre agence avec élégance et performance depuis votre espace administrateur sécurisé.
+            </p>
+            <div class="flex gap-2">
+              <div class="h-1 w-12 bg-primary rounded-full"></div>
+              <div class="h-1 w-4 bg-white/20 rounded-full"></div>
+              <div class="h-1 w-4 bg-white/20 rounded-full"></div>
+            </div>
+          </div>
+
+          <!-- Abstract curved shape at bottom -->
+          <svg class="absolute bottom-0 left-0 w-full h-32 text-primary/5 pointer-events-none" preserveAspectRatio="none" viewBox="0 0 100 100">
+            <path d="M0,100 C30,80 70,80 100,100 L100,100 L0,100 Z" fill="currentColor" />
+          </svg>
+        </div>
+
+        <!-- Côté Droit: Form -->
+        <div class="flex-1 p-8 md:p-10 flex flex-col justify-center bg-white">
+          <div class="mb-8 text-center md:text-left">
+            <div class="md:hidden mb-10 flex justify-center">
+              <div class="p-4 bg-gray-50 rounded-2xl border border-gray-100 shadow-sm">
+                <img src="/images/logo-fond-blanc.png" class="h-12 w-auto" alt="Logo" />
+              </div>
+            </div>
+            <h1 class="text-4xl font-extrabold text-[#0B0A07] tracking-tight">Connexion</h1>
+            <div class="h-1.5 w-12 bg-primary rounded-full mt-4 mx-auto md:mx-0"></div>
+            <p class="mt-2 text-gray-400 text-[10px] font-medium uppercase tracking-[0.2em]">Accès réservé • Lumen Agency</p>
+          </div>
+
+          <form @submit.prevent="handleLogin" class="space-y-6">
+            <div class="space-y-2">
+              <label class="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] ml-2">Email Administrateur</label>
+              <div class="relative group">
+                <input v-model="email" type="email" placeholder="nom@lumen-agency.com"
+                  class="w-full bg-gray-50 border-2 border-gray-100 focus:border-primary/30 focus:ring-4 focus:ring-primary/5 focus:bg-white px-6 py-4 text-gray-900 font-bold outline-none transition-all placeholder:text-gray-300 rounded-2xl"
+                  required />
               </div>
             </div>
 
-            <div class="form-group">
-              <label for="password" class="text-[11px] uppercase tracking-[0.15em] text-gray-500 font-bold ml-2">Code d'accès</label>
-              <div class="input-wrapper group">
-                <input :type="showPassword ? 'text' : 'password'" id="password" v-model="credentials.password"
-                  class="bg-gray-50 border-gray-200 text-[#0B0A07] placeholder:text-gray-300 focus:bg-white focus:border-primary/50 focus:ring-4 focus:ring-primary/5 transition-all duration-300"
-                  placeholder="••••••••" required />
-                <button type="button" class="btn-toggle-pass" @click="showPassword = !showPassword">
-                  <svg v-if="!showPassword" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
-                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                    <circle cx="12" cy="12" r="3"></circle>
+            <div class="space-y-2">
+              <div class="flex justify-between items-center ml-2">
+                <label class="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em]">Code d'accès</label>
+                <NuxtLink to="/admin/forgot-password" class="text-[10px] font-black text-primary uppercase tracking-widest hover:underline transition-all">Oublié ?</NuxtLink>
+              </div>
+              <div class="relative group">
+                <input v-model="password" :type="showPassword ? 'text' : 'password'" placeholder="••••••••"
+                  class="w-full bg-gray-50 border-2 border-gray-100 focus:border-primary/30 focus:ring-4 focus:ring-primary/5 focus:bg-white px-6 py-4 text-gray-900 font-bold outline-none transition-all placeholder:text-gray-300 rounded-2xl"
+                  required />
+                <button type="button" @click="showPassword = !showPassword"
+                  class="absolute right-6 top-1/2 -translate-y-1/2 text-gray-300 hover:text-primary transition-colors duration-300">
+                  <svg v-if="!showPassword" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
-                  <svg v-else xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path
-                      d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24">
-                    </path>
-                    <line x1="1" y1="1" x2="23" y2="23"></line>
+                  <svg v-else class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path d="M13.875 18.825A10.05 10.05 0 0112 19c-4.477 0-8.268-2.943-9.542-7a9.96 9.96 0 012.219-3.423m1.43-1.1A9.963 9.963 0 0112 5c4.477 0 8.268 2.943 9.542 7a10.05 10.05 0 01-1.481 2.563M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M3 3l18 18" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                 </button>
               </div>
             </div>
 
-            <button type="submit" class="btn-login group overflow-hidden relative" :disabled="isLoading">
-              <div class="absolute inset-0 bg-black/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
-              <span class="relative z-10 flex items-center justify-center gap-3 font-bold uppercase tracking-[0.2em] text-xs">
-                {{ isLoading ? 'Initialisation...' : 'Authentification' }}
-                <svg v-if="!isLoading" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 translate-x-0 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            <button :disabled="isLoading"
+              class="w-full bg-[#0B0A07] text-white py-5 rounded-2xl font-black text-xs uppercase tracking-[0.25em] shadow-2xl shadow-black/10 hover:bg-primary hover:-translate-y-1 active:translate-y-0 transition-all duration-500 disabled:opacity-60 flex items-center justify-center gap-3 group">
+              <svg v-if="isLoading" class="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              <div v-else class="flex items-center gap-3">
+                <span>Authentification</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 translate-x-0 group-hover:translate-x-2 transition-transform duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
-              </span>
+              </div>
             </button>
           </form>
 
-          <Transition name="fade">
-            <div v-if="errorMsg" class="mt-8 p-4 bg-red-50 border border-red-100 rounded-xl">
-              <p class="text-[10px] text-red-500 font-bold uppercase tracking-widest text-center">{{ errorMsg }}</p>
-            </div>
-          </Transition>
+          <div class="mt-10 pt-6 border-t border-gray-100 text-center">
+            <NuxtLink to="/" class="text-[10px] font-black text-gray-300 hover:text-primary uppercase tracking-[0.4em] transition-colors">
+              Retour au portail public
+            </NuxtLink>
+          </div>
         </div>
-      </div>
-
-      <div class="mt-12 text-center reveal-delay">
-        <NuxtLink to="/" class="group inline-flex items-center gap-2 text-[10px] text-gray-400 uppercase tracking-[0.3em] hover:text-primary transition-colors">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-          </svg>
-          Retour au portail
-        </NuxtLink>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
 import { useAuthStore } from "~~/stores/auth";
+import { ref, onMounted } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import Swal from 'sweetalert2';
 
 definePageMeta({
-  layout: false
-})
+  layout: false,
+  auth: false,
+});
 
-const auth = useAuthStore()
-const credentials = ref({ email: '', password: '' })
-const showPassword = ref(false)
-const isLoading = ref(false)
-const errorMsg = ref('')
+const router = useRouter();
+const auth = useAuthStore();
+const route = useRoute();
+const email = ref("");
+const password = ref("");
+const showPassword = ref(false);
+const isLoading = ref(false);
 
+// Redirige si l'utilisateur est déjà connecté
 onMounted(() => {
   auth.init();
   if (auth.isLogged) {
@@ -117,162 +143,81 @@ onMounted(() => {
 });
 
 const handleLogin = async () => {
-  errorMsg.value = ''
-
-  let valid = true;
-  if (!credentials.value.email.trim()) {
-    errorMsg.value = "Identifiant manquant.";
-    valid = false;
-  } else if (!credentials.value.password) {
-    errorMsg.value = "Code d'accès requis.";
-    valid = false;
+  if (!email.value || !password.value) {
+    Swal.fire({
+      title: 'Attention',
+      text: 'Veuillez remplir tous les champs.',
+      icon: 'warning',
+      confirmButtonColor: '#f29004',
+      customClass: {
+        popup: 'rounded-3xl',
+        confirmButton: 'rounded-xl font-bold px-8 py-3'
+      }
+    });
+    return;
   }
 
-  if (!valid) return;
-
-  isLoading.value = true
-
+  isLoading.value = true;
   try {
-    await auth.login(credentials.value.email, credentials.value.password);
-    await navigateTo("/admin");
+    await auth.login(email.value, password.value);
+
+    // Toast premium pour le succès
+    Swal.fire({
+      toast: true,
+      position: 'top-end',
+      icon: 'success',
+      title: 'Accès autorisé !',
+      text: 'Heureux de vous revoir.',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      customClass: {
+        popup: 'rounded-2xl border-l-4 border-green-500 shadow-2xl'
+      }
+    });
+
+    // Redirection vers admin par défaut ou page demandée
+    const redirect = typeof route.query.redirect === "string" ? route.query.redirect : "/admin";
+    navigateTo(redirect);
+
   } catch (e: any) {
-    errorMsg.value = e?.message ?? "Accès refusé. Vérifiez vos codes.";
+    Swal.fire({
+      title: 'Erreur d\'accès',
+      text: e.message || "Identifiants incorrects ou accès non autorisé.",
+      icon: 'error',
+      confirmButtonColor: '#0B0A07',
+      customClass: {
+        popup: 'rounded-3xl',
+        confirmButton: 'rounded-xl font-black px-8 py-3 uppercase tracking-widest text-sm'
+      }
+    });
   } finally {
     isLoading.value = false;
   }
-}
+};
 
 useHead({
-  title: 'Système Administrateur - Lumen Agency'
+  title: 'Accès Administrateur - Lumen Agency'
 })
 </script>
 
 <style scoped>
-.login-page {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  font-family: 'Outfit', sans-serif;
-  color: #0B0A07;
-  background: #f8fafc;
-  position: relative;
+/* Use the fonts already defined in nuxt.config */
+.animate-in {
+  animation-duration: 0.8s;
+  animation-fill-mode: both;
 }
 
-.grid-overlay {
-  position: absolute;
-  inset: 0;
-  background-image: 
-    linear-gradient(rgba(242, 144, 4, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(242, 144, 4, 0.03) 1px, transparent 1px);
-  background-size: 50px 50px;
-  mask-image: radial-gradient(circle at 50% 50%, black, transparent 80%);
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-.login-container {
-  width: 100%;
-  max-width: 480px;
-  perspective: 1000px;
-  z-index: 10;
+@keyframes slide-in-from-bottom-8 {
+  from { transform: translateY(2rem); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 
-.login-card-wrapper {
-  position: relative;
-  animation: card-appear 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-}
-
-.login-card {
-  padding: 4rem 3rem;
-  border-radius: 40px;
-}
-
-.login-form {
-  margin-top: 3rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.input-wrapper {
-  position: relative;
-}
-
-.input-icon {
-  position: absolute;
-  left: 1.25rem;
-  top: 50%;
-  transform: translateY(-50%);
-  color: rgba(0, 0, 0, 0.2);
-}
-
-input {
-  width: 100%;
-  padding: 1.125rem 1.25rem 1.125rem 3.5rem;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  outline: none;
-  border: 1px solid;
-}
-
-.btn-toggle-pass {
-  position: absolute;
-  right: 1.25rem;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  color: rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-}
-
-.btn-login {
-  background: var(--color-primary);
-  color: white;
-  padding: 1.25rem;
-  border-radius: 20px;
-  box-shadow: 0 20px 40px -10px rgba(var(--color-primary-rgb), 0.3);
-  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-  border: none;
-  cursor: pointer;
-}
-
-.btn-login:hover:not(:disabled) {
-  box-shadow: 0 25px 50px -12px rgba(var(--color-primary-rgb), 0.5);
-  transform: translateY(-3px) scale(1.02);
-}
-
-.btn-login:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-
-@keyframes card-appear {
-  0% { opacity: 0; transform: translateY(40px) rotateX(-10deg); }
-  100% { opacity: 1; transform: translateY(0) rotateX(0); }
-}
-
-@keyframes float {
-  0%, 100% { transform: translate(-50%, -50%) scale(1); }
-  50% { transform: translate(-45%, -55%) scale(1.1); }
-}
-
-.animate-float {
-  animation: float 8s ease-in-out infinite;
-}
-
-.fade-enter-active, .fade-leave-active {
-  transition: all 0.4s ease;
-}
-.fade-enter-from, .fade-leave-to {
-  opacity: 0;
-  transform: translateY(-10px);
-}
+.fade-in { animation-name: fade-in; }
+.slide-in-from-bottom-8 { animation-name: slide-in-from-bottom-8; }
 </style>
-

@@ -68,6 +68,36 @@ export const useAuthStore = defineStore("auth", {
       if (redirect) return navigateTo("/admin/login");
     },
 
+    async forgotPassword(email: string) {
+      const { $api } = useNuxtApp();
+      this.loading = true;
+      try {
+        await $api("/forgot-password", {
+          method: "POST",
+          body: { email },
+        });
+      } catch (error: any) {
+        throw parseApiError(error);
+      } finally {
+        this.loading = false;
+      }
+    },
+
+    async resetPassword(body: any) {
+      const { $api } = useNuxtApp();
+      this.loading = true;
+      try {
+        await $api("/reset-password", {
+          method: "POST",
+          body,
+        });
+      } catch (error: any) {
+        throw parseApiError(error);
+      } finally {
+        this.loading = false;
+      }
+    },
+
     init() {
       if (!process.client) return;
 

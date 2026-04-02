@@ -1,4 +1,4 @@
-# Nuxt Minimal Starter
+# Lumen Agency Frontend
 
 Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
@@ -73,3 +73,11 @@ bun run preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+
+## Authentification
+L'application inclut un système d'authentification complet :
+- **Connexion** : `/admin/login`
+- **Mot de passe oublié** : `/admin/forgot-password`
+- **Réinitialisation** : `/admin/reset-password`
+
+Assurez-vous que votre backend Laravel est configuré pour envoyer les e-mails.

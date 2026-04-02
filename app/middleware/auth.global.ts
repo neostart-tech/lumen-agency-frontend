@@ -10,8 +10,13 @@ export default defineNuxtRouteMiddleware((to) => {
 
   const auth = useAuthStore();
 
-  // Si on est sur une page d'administration, mais pas le login admin
-  if (to.path.startsWith('/admin') && to.path !== '/admin/login') {
+  // Permet de désactiver le middleware sur une page via definePageMeta({ auth: false })
+  if (to.meta.auth === false) {
+    return;
+  }
+
+  // Si on est sur une page d'administration
+  if (to.path.startsWith('/admin')) {
     // Si l'utilisateur n'est pas connecté
     if (!auth.isLogged) {
       return navigateTo('/admin/login');

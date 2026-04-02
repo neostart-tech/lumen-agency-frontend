@@ -115,12 +115,12 @@ useHead({
         </div>
 
         <div v-else-if="sortedServices.length > 0"
-          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 md:gap-10">
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
           <div v-for="(service, index) in sortedServices" :key="service.id"
-            class="group bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 border border-dark/5 flex flex-col h-full reveal-on-scroll"
+            class="group bg-white rounded-[1.5rem] overflow-hidden shadow-sm hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 border border-dark/5 flex flex-col h-full reveal-on-scroll"
             :class="`delay-${(index % 4) * 100}`">
             <!-- Image Container -->
-            <div class="relative h-64 overflow-hidden border-b border-dark/5">
+            <div class="relative h-48 sm:h-52 overflow-hidden border-b border-dark/5">
               <img :src="getImageUrl(service.image)" :alt="service.titre"
                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
               <div
@@ -129,7 +129,7 @@ useHead({
             </div>
 
             <!-- Content -->
-            <div class="p-8 flex flex-col flex-grow">
+            <div class="p-5 flex flex-col flex-grow">
               <div class="flex items-center gap-4 mb-6">
                 <div class="w-8 h-[2px] bg-primary transition-all duration-500 group-hover:w-12"></div>
                 <div class="w-2 h-2 rounded-full bg-primary/20 transition-all duration-500 group-hover:bg-primary">
