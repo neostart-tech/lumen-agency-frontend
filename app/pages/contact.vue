@@ -136,7 +136,7 @@ const submitForm = async () => {
 <template>
   <div class="bg-light min-h-screen font-outfit">
     <!-- Hero Section with Background -->
-    <section ref="heroSection" class="relative py-20 md:py-32 bg-dark overflow-hidden flex items-center min-h-[400px]">
+    <section ref="heroSection" class="relative py-20 md:py-32 bg-dark overflow-hidden flex items-center h-[100vh] min-h-[400px]">
       <!-- Background Image -->
       <div class="absolute inset-0 z-0">
         <img src="/images/contact-bg.jpg" alt="Contact Lumen Agency"

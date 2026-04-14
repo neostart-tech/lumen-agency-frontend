@@ -2,14 +2,17 @@
 import { onMounted, computed } from 'vue'
 import { useLienStore } from '~~/stores/lien'
 import { useContactStore } from '~~/stores/contact'
+import { useServiceStore } from '~~/stores/service'
 
 const currentYear = new Date().getFullYear();
 const lienStore = useLienStore()
 const contactStore = useContactStore()
+const serviceStore = useServiceStore()
 
-onMounted(() => {
-  lienStore.fetch()
-  contactStore.fetch()
+onMounted(async () => {
+  await lienStore.fetch()
+  await contactStore.fetch()
+  await serviceStore.fetch()
 })
 
 const footerLinks = [
@@ -115,54 +118,20 @@ const socials = computed(() => {
           <h3 class="text-dark font-bold uppercase tracking-[0.2em] text-xs pb-4 border-b border-dark/10 w-fit pr-12">
             Nos Expertises</h3>
           <nav class="flex flex-col gap-3">
-            <NuxtLink to="/services"
-              class="text-dark/90 hover:text-primary transition-all text-sm font-medium w-fit flex items-center group">
-              <span
-                class="w-0 group-hover:w-4 h-px bg-primary mr-0 group-hover:mr-2 transition-all duration-300"></span>
-              HÔTESSES D'ACCUEIL
-            </NuxtLink>
-            <NuxtLink to="/services"
-              class="text-dark/90 hover:text-primary transition-all text-sm font-medium w-fit flex items-center group">
-              <span
-                class="w-0 group-hover:w-4 h-px bg-primary mr-0 group-hover:mr-2 transition-all duration-300"></span>
-              ÉVÉNEMENTIEL
-            </NuxtLink>
-            <NuxtLink to="/services"
-              class="text-dark/90 hover:text-primary transition-all text-sm font-medium w-fit flex items-center group">
-              <span
-                class="w-0 group-hover:w-4 h-px bg-primary mr-0 group-hover:mr-2 transition-all duration-300"></span>
-              ASSISTANTE AÉROPORTUAIRE
-            </NuxtLink>
-            <NuxtLink to="/services"
-              class="text-dark/90 hover:text-primary transition-all text-sm font-medium w-fit flex items-center group">
-              <span
-                class="w-0 group-hover:w-4 h-px bg-primary mr-0 group-hover:mr-2 transition-all duration-300"></span>
-              TRANSPORT & LOGISTIQUE
-            </NuxtLink>
-            <NuxtLink to="/services"
-              class="text-dark/90 hover:text-primary transition-all text-sm font-medium w-fit flex items-center group">
-              <span
-                class="w-0 group-hover:w-4 h-px bg-primary mr-0 group-hover:mr-2 transition-all duration-300"></span>
-              IMPORT - EXPORT
-            </NuxtLink>
-            <NuxtLink to="/services"
-              class="text-dark/90 hover:text-primary transition-all text-sm font-medium w-fit flex items-center group">
-              <span
-                class="w-0 group-hover:w-4 h-px bg-primary mr-0 group-hover:mr-2 transition-all duration-300"></span>
-              AGENCE DE VOYAGE
-            </NuxtLink>
-            <NuxtLink to="/services"
-              class="text-dark/90 hover:text-primary transition-all text-sm font-medium w-fit flex items-center group">
-              <span
-                class="w-0 group-hover:w-4 h-px bg-primary mr-0 group-hover:mr-2 transition-all duration-300"></span>
-              BILLETTERIE D'AVION
-            </NuxtLink>
-            <NuxtLink to="/services"
-              class="text-dark/90 hover:text-primary transition-all text-sm font-medium w-fit flex items-center group">
-              <span
-                class="w-0 group-hover:w-4 h-px bg-primary mr-0 group-hover:mr-2 transition-all duration-300"></span>
-              TOURISME
-            </NuxtLink>
+            <!-- Skeleton Loading state -->
+            <template v-if="serviceStore.loading && serviceStore.services.length === 0">
+              <div v-for="i in 5" :key="i" class="h-5 bg-dark/5 rounded animate-pulse w-3/4"></div>
+            </template>
+            
+            <!-- Dynamic Services List -->
+            <template v-else>
+              <NuxtLink v-for="service in serviceStore.services" :key="service.id" to="/services"
+                class="text-dark/90 hover:text-primary transition-all text-sm font-medium w-fit flex items-center group uppercase">
+                <span
+                  class="w-0 group-hover:w-4 h-px bg-primary mr-0 group-hover:mr-2 transition-all duration-300"></span>
+                {{ service.titre }}
+              </NuxtLink>
+            </template>
           </nav>
         </div>
 

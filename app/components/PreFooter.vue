@@ -20,66 +20,67 @@ onMounted(() => {
 </script>
 
 <template>
-  <section ref="preFooterSection" class="relative overflow-hidden bg-secondary py-20 md:py-28 text-white">
-    <!-- Animated background elements -->
-    <div class="absolute inset-0 z-0 pointer-events-none opacity-30">
-      <div class="absolute -top-24 -right-24 w-96 h-96 bg-primary/40 rounded-full blur-[120px] animate-float-slow">
-      </div>
-      <div
-        class="absolute -bottom-24 -left-24 w-[500px] h-[500px] bg-accent/30 rounded-full blur-[150px] animate-float-reverse">
-      </div>
+  <section ref="preFooterSection" class="relative overflow-hidden bg-light py-16 md:py-20 text-dark border-t border-gray-100">
+    <!-- Bright/Soft background gradients -->
+    <div class="absolute inset-0 z-0 pointer-events-none">
+      <!-- Animated Orbs (Subtle) -->
+      <div class="absolute top-1/4 -right-24 w-80 h-80 bg-primary/5 rounded-full blur-[100px] animate-float-slow"></div>
+      <div class="absolute bottom-1/4 -left-24 w-[400px] h-[400px] bg-secondary/5 rounded-full blur-[120px] animate-float-reverse"></div>
     </div>
 
-    <!-- Architectural Pattern Overlay (Subtle) -->
+    <!-- Architectural Pattern Overlay (Subtle, Light Mode) -->
     <div
-      class="absolute inset-0 opacity-[0.03] z-0 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]">
+      class="absolute inset-0 opacity-[0.015] z-0 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] mix-blend-overlay">
     </div>
 
     <div class="container mx-auto px-4 md:px-8 relative z-10 text-center">
-      <div class="max-w-4xl mx-auto space-y-10 md:space-y-12">
+      <div class="max-w-4xl mx-auto space-y-8 md:space-y-10">
 
         <!-- Animated Title Header -->
         <div class="space-y-6">
           <div
-            class="block w-fit mx-auto py-1 px-4 bg-white/10 border-l-4 border-primary text-primary text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] backdrop-blur-md reveal-on-scroll">
+            class="inline-flex items-center gap-3 py-1.5 px-5 bg-white border border-gray-100 shadow-sm rounded-full text-dark text-[10px] md:text-xs font-semibold uppercase tracking-[0.2em] transform transition-transform hover:scale-105">
+            <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse shadow-[0_0_8px_rgba(242,144,4,0.4)]"></span>
             Prêt à commencer ?
           </div>
 
-          <div class="relative inline-block">
+          <div class="relative w-full max-w-2xl mx-auto">
             <!-- Motion Line Animation -->
             <div
-              class="absolute -left-10 top-1/2 -translate-y-1/2 w-[calc(100%+80px)] h-px bg-primary/30 overflow-hidden pointer-events-none z-0">
-              <div v-if="preFooterVisible" class="w-full h-full bg-primary animate-line-sweep"></div>
+              class="absolute -left-10 top-1/2 -translate-y-1/2 w-[calc(100%+80px)] h-px bg-gray-200 overflow-hidden pointer-events-none z-0">
+              <div v-if="preFooterVisible" class="w-full h-full bg-gradient-to-r from-transparent via-primary/50 to-transparent animate-line-sweep"></div>
             </div>
 
             <h2
-              class="relative z-10 text-3xl md:text-5xl font-semibold leading-[1.2] uppercase tracking-tight flex flex-col items-center">
-              <span class="block overflow-hidden py-1 h-[1.3em]">
+              class="relative z-10 text-3xl md:text-5xl font-light leading-[1.2] tracking-tight flex flex-col items-center">
+              <span class="block overflow-hidden py-1">
                 <span class="inline-block opacity-0"
                   :class="{ 'animate-title-reveal delay-100': preFooterVisible }">Besoin d'un <span
-                    class="text-primary font-bold">service</span> d'exception ?</span>
+                    class="font-semibold text-primary">service</span> d'exception ?</span>
               </span>
-              <span class="block overflow-hidden py-1 h-[1.3em]">
-                <span class="inline-block opacity-0 text-white/60"
-                  :class="{ 'animate-title-reveal delay-300': preFooterVisible }">Contactez-nous dès maintenant</span>
+              <span class="block overflow-hidden py-1 hidden md:block">
+                <span class="inline-block opacity-0 text-dark/80 font-light"
+                  :class="{ 'animate-title-reveal delay-300': preFooterVisible }">Contactez-nous aujourd'hui</span>
               </span>
             </h2>
           </div>
         </div>
 
-        <p class="text-lg md:text-xl text-white/70 max-w-2xl mx-auto leading-relaxed font-light reveal-on-scroll delay-400"
+        <p class="text-base md:text-lg text-dark/60 max-w-2xl mx-auto leading-relaxed font-light reveal-on-scroll delay-400"
           :class="{ 'opacity-100 translate-y-0': preFooterVisible }">
-          Notre équipe d'experts est prête à transformer vos besoins en solutions fluides, prestigieuses et parfaitement
-          exécutées.
+          Notre équipe d'experts est dédiée à la création d'expériences sur-mesure, transformant vos visions en réalisations prestigieuses et parfaitement exécutées.
         </p>
 
         <!-- Animated Buttons -->
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-6 pt-4 reveal-on-scroll delay-500">
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 reveal-on-scroll delay-500">
           <NuxtLink to="/contact?type=devis"
-            class="group w-full sm:w-auto bg-primary hover:bg-white text-white hover:text-secondary px-10 py-5 rounded-full text-sm font-bold uppercase tracking-[0.2em] transition-all duration-500 transform hover:scale-105 shadow-xl shadow-primary/20 flex items-center justify-center gap-4">
-            Demander un devis
-            <div
-              class="w-8 h-8 rounded-full bg-white/10 group-hover:bg-secondary/10 flex items-center justify-center transition-all duration-300">
+            class="group w-full sm:w-auto relative overflow-hidden bg-primary text-white hover:text-white px-8 py-4 rounded-full text-sm font-semibold uppercase tracking-[0.1em] transition-all duration-500 flex items-center justify-center gap-3 hover:shadow-[0_0_30px_-5px_rgba(242,144,4,0.4)] border border-primary">
+            
+            <!-- Hover Background Fill -->
+            <div class="absolute inset-0 bg-dark translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.8,0,0.2,1)] z-0"></div>
+            
+            <span class="relative z-10 transition-colors duration-500">Demander un devis</span>
+            <div class="relative z-10 w-8 h-8 rounded-full bg-white/20 group-hover:bg-white/10 flex items-center justify-center transition-all duration-500 text-white">
               <svg xmlns="http://www.w3.org/2000/svg"
                 class="w-4 h-4 transition-transform duration-500 group-hover:translate-x-1" fill="none"
                 viewBox="0 0 24 24" stroke="currentColor">
@@ -89,17 +90,17 @@ onMounted(() => {
           </NuxtLink>
 
           <NuxtLink to="/services"
-            class="w-full sm:w-auto border border-white/20 hover:border-white/40 hover:bg-white/5 text-white px-10 py-5 rounded-full text-sm font-semibold uppercase tracking-[0.2em] backdrop-blur-sm transition-all duration-500 text-center">
+            class="w-full sm:w-auto border border-gray-200 bg-white hover:bg-gray-50 text-dark shadow-[0_4px_14px_0_rgba(0,0,0,0.02)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.05)] px-8 py-4 rounded-full text-sm font-semibold uppercase tracking-[0.1em] transition-all duration-500 text-center">
             Voir nos services
           </NuxtLink>
         </div>
       </div>
     </div>
 
-    <!-- Large corner logo decoration -->
-    <div class="absolute -bottom-20 -right-20 opacity-10 pointer-events-none select-none">
+    <!-- Large corner logo decoration - More elegant -->
+    <div class="absolute -bottom-10 -right-10 opacity-[0.03] pointer-events-none select-none blur-[1px] transition-transform duration-1000 group-hover:scale-105">
       <img src="/images/logo-1-blanc.png" alt=""
-        class="w-96 h-auto grayscale transition-transform duration-1000 group-hover:scale-110" />
+        class="w-[300px] md:w-[400px] h-auto invert grayscale" />
     </div>
   </section>
 </template>

@@ -13,8 +13,8 @@ const sortedServices = computed(() => {
   });
 });
 
-onMounted(() => {
-  serviceStore.fetch();
+onMounted(async () => {
+  await serviceStore.fetch();
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
@@ -56,7 +56,7 @@ useHead({
 <template>
   <div class="bg-light min-h-screen font-outfit">
     <!-- Hero Section with Background Image -->
-    <section ref="heroSection" class="relative py-20 md:py-32 bg-dark overflow-hidden flex items-center min-h-[400px]">
+    <section ref="heroSection" class="relative py-20 md:py-32 bg-dark overflow-hidden flex items-center h-[100vh] min-h-[400px]">
       <!-- Background Image -->
       <div class="absolute inset-0 z-0">
         <img src="/images/services-bg.jpg" alt="Services Lumen Agency"

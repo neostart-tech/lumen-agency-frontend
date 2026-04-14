@@ -141,7 +141,7 @@ watch(activeCategory, () => {
 <template>
   <div class="bg-light min-h-screen font-outfit overflow-x-hidden">
     <!-- Hero Section -->
-    <section ref="heroSection" class="relative py-20 md:py-32 bg-dark overflow-hidden flex items-center min-h-[400px]">
+    <section ref="heroSection" class="relative py-20 md:py-32 bg-dark overflow-hidden flex items-center h-[100vh] min-h-[400px]">
       <!-- Background Image -->
       <div class="absolute inset-0 z-0 opacity-40">
         <img src="/images/blogs-bg.jpg" alt="Lumen Agency Blog" class="w-full h-full object-cover" />

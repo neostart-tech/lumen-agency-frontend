@@ -27,7 +27,7 @@ useHead({
 <template>
   <div>
     <!-- Hero Section with Background -->
-    <section ref="heroSection" class="relative h-[90vh] bg-dark overflow-hidden flex items-center min-h-[600px]">
+    <section ref="heroSection" class="relative h-[100vh] bg-dark overflow-hidden flex items-center min-h-[600px]">
       <!-- Background Image -->
       <div class="absolute inset-0 z-0 text-white">
         <img src="/images/a-propos-bg.jpg" alt="Lumen Agency Excellence"
